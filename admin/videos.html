@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Video — Admin</title>
+<link rel="stylesheet" href="../assets/admin.css">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="admin-layout" data-page="videos">
+<aside id="sidebar" class="sidebar"></aside>
+<main class="admin-main">
+  <div class="topbar"><b>Halo, <span id="adminName"></span> 👋</b></div>
+  <div id="flash"></div>
+
+  <div class="page-head">
+    <div>
+      <h1 class="page-title">Video Pembelajaran</h1>
+      <p class="page-sub" id="countLabel">0 video</p>
+    </div>
+    <button class="btn btn-primary" onclick="openForm()">+ Tambah Video</button>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Judul</th><th>Kategori</th><th>Tipe</th><th>Tanggal</th><th>Aksi</th></tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+</main>
+
+<div class="form-modal" id="formModal">
+  <div class="form-modal-box">
+    <h2 id="formTitle">Tambah Video</h2>
+    <form id="videoForm" onsubmit="return saveVideo(event)">
+      <input type="hidden" name="id" value="0">
+      <label>Judul Video</label>
+      <input name="judul" required>
+      <label>Kategori</label>
+      <input name="kategori" value="Umum" placeholder="Contoh: Pemilu, Demokrasi">
+      <label>Deskripsi</label>
+      <textarea name="deskripsi" rows="3"></textarea>
+      <label>URL YouTube</label>
+      <input name="url" placeholder="https://youtube.com/watch?v=...">
+      <p class="hint">Video akan diputar langsung di website menggunakan embed YouTube.</p>
+      <div class="form-actions">
+        <button class="btn btn-primary">💾 Simpan</button>
+        <button type="button" class="btn btn-secondary" onclick="closeForm()">Batal</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="../assets/store.js"></script>
+<script src="../assets/admin-header.js"></script>
+<script>
+let editingId = null;
+
+function renderTable(){
+  const list = APStore.getList('videos');
+  document.getElementById('countLabel').textContent = list.length + ' video';
+  const tb = document.getElementById('tbody');
+  if (!list.length) {
+    tb.innerHTML = '<tr><td colspan="5" class="empty-row">Belum ada video</td></tr>';
+    return;
+  }
+  tb.innerHTML = list.map(v => `
+    <tr>
+      <td><b>${esc(v.judul)}</b></td>
+      <td><span class="tag-blue">${esc(v.kategori)}</span></td>
+      <td>${v.tipe === 'youtube' ? 'YouTube' : 'File'}</td>
+      <td>${formatDate(v.created_at)}</td>
+      <td class="actions">
+        <button class="btn-sm edit" onclick="openForm(${v.id})">Edit</button>
+        <button class="btn-sm delete" onclick="deleteVideo(${v.id})">Hapus</button>
+      </td>
+    </tr>`).join('');
+}
+
+function formatDate(iso){
+  const d = new Date(iso);
+  return d.toLocaleDateString('id-ID', {day:'2-digit', month:'short', year:'numeric'});
+}
+
+function openForm(id){
+  editingId = id || null;
+  const modal = document.getElementById('formModal');
+  const form = document.getElementById('videoForm');
+  form.reset();
+  document.getElementById('formTitle').textContent = id ? 'Edit Video' : 'Tambah Video';
+  if (id) {
+    const v = APStore.getById('videos', id);
+    if (!v) return;
+    form.id.value = v.id;
+    form.judul.value = v.judul;
+    form.kategori.value = v.kategori;
+    form.deskripsi.value = v.deskripsi || '';
+    form.url.value = v.url || '';
+  } else {
+    form.id.value = 0;
+  }
+  modal.classList.add('open');
+}
+
+function closeForm(){
+  document.getElementById('formModal').classList.remove('open');
+  editingId = null;
+}
+
+function saveVideo(e){
+  e.preventDefault();
+  const form = e.target;
+  const data = {
+    judul: form.judul.value.trim(),
+    kategori: form.kategori.value.trim() || 'Umum',
+    deskripsi: form.deskripsi.value.trim(),
+    tipe: 'youtube',
+    url: form.url.value.trim()
+  };
+  const id = parseInt(form.id.value);
+  if (id) {
+    APStore.update('videos', id, data);
+    showFlash('Video berhasil diperbarui');
+  } else {
+    APStore.add('videos', data);
+    showFlash('Video berhasil ditambahkan');
+  }
+  closeForm();
+  renderTable();
+  return false;
+}
+
+function deleteVideo(id){
+  if (!confirm('Hapus video ini?')) return;
+  APStore.remove('videos', id);
+  showFlash('Video dihapus');
+  renderTable();
+}
+
+renderTable();
+</script>
+</body>
+</html>
