@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Buku — Admin</title>
+<link rel="stylesheet" href="../assets/admin.css">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="admin-layout" data-page="books">
+<aside id="sidebar" class="sidebar"></aside>
+<main class="admin-main">
+  <div class="topbar"><b>Halo, <span id="adminName"></span> 👋</b></div>
+  <div id="flash"></div>
+
+  <div class="page-head">
+    <div>
+      <h1 class="page-title">Referensi Buku</h1>
+      <p class="page-sub" id="countLabel">0 buku</p>
+    </div>
+    <button class="btn btn-primary" onclick="openForm()">+ Tambah Buku</button>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Cover</th><th>Judul</th><th>Penulis</th><th>Tahun</th><th>Aksi</th></tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+</main>
+
+<div class="form-modal" id="formModal">
+  <div class="form-modal-box">
+    <h2 id="formTitle">Tambah Buku</h2>
+    <form id="bookForm" onsubmit="return saveBook(event)">
+      <input type="hidden" name="id" value="0">
+      <input type="hidden" name="cover_path" value="">
+      <label>Judul Buku</label>
+      <input name="judul" required>
+      <div class="row-2">
+        <div><label>Penulis</label><input name="penulis"></div>
+        <div><label>Penerbit</label><input name="penerbit"></div>
+      </div>
+      <label>Tahun</label>
+      <input name="tahun" placeholder="2024">
+      <label>Deskripsi</label>
+      <textarea name="deskripsi" rows="3"></textarea>
+      <label>URL File Buku (PDF)</label>
+      <input name="file_path" placeholder="https://...">
+      <label>Upload Cover (jpg/png, maks 1MB)</label>
+      <input type="file" accept="image/*" onchange="handleCover(this)">
+      <div id="coverPreview"></div>
+      <div class="form-actions">
+        <button class="btn btn-primary">💾 Simpan</button>
+        <button type="button" class="btn btn-secondary" onclick="closeForm()">Batal</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="../assets/store.js"></script>
+<script src="../assets/admin-header.js"></script>
+<script>
+function renderTable(){
+  const list = APStore.getList('books');
+  document.getElementById('countLabel').textContent = list.length + ' buku';
+  const tb = document.getElementById('tbody');
+  if (!list.length) {
+    tb.innerHTML = '<tr><td colspan="5" class="empty-row">Belum ada buku</td></tr>';
+    return;
+  }
+  tb.innerHTML = list.map(b => `
+    <tr>
+      <td>${b.cover_path ? `<img src="${esc(b.cover_path)}" style="width:40px;height:56px;object-fit:cover;border-radius:4px">` : '<div style="width:40px;height:56px;background:#f1f5f9;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:20px">📖</div>'}</td>
+      <td><b>${esc(b.judul)}</b></td>
+      <td>${esc(b.penulis || '-')}</td>
+      <td>${esc(b.tahun || '-')}</td>
+      <td class="actions">
+        ${b.file_path && b.file_path !== '#' ? `<a href="${esc(b.file_path)}" target="_blank" class="btn-sm view">Baca</a>` : ''}
+        <button class="btn-sm edit" onclick="openForm(${b.id})">Edit</button>
+        <button class="btn-sm delete" onclick="deleteBook(${b.id})">Hapus</button>
+      </td>
+    </tr>`).join('');
+}
+
+function openForm(id){
+  const modal = document.getElementById('formModal');
+  const form = document.getElementById('bookForm');
+  form.reset();
+  document.getElementById('coverPreview').innerHTML = '';
+  document.getElementById('formTitle').textContent = id ? 'Edit Buku' : 'Tambah Buku';
+  if (id) {
+    const b = APStore.getById('books', id);
+    if (!b) return;
+    form.id.value = b.id;
+    form.judul.value = b.judul;
+    form.penulis.value = b.penulis || '';
+    form.penerbit.value = b.penerbit || '';
+    form.tahun.value = b.tahun || '';
+    form.deskripsi.value = b.deskripsi || '';
+    form.file_path.value = b.file_path === '#' ? '' : (b.file_path || '');
+    form.cover_path.value = b.cover_path || '';
+    if (b.cover_path) {
+      document.getElementById('coverPreview').innerHTML = `<img src="${esc(b.cover_path)}" style="height:80px;border-radius:6px;margin-top:8px">`;
+    }
+  } else {
+    form.id.value = 0;
+  }
+  modal.classList.add('open');
+}
+
+function closeForm(){
+  document.getElementById('formModal').classList.remove('open');
+}
+
+function handleCover(input){
+  const file = input.files[0];
+  if (!file) return;
+  if (file.size > 1024 * 1024) {
+    alert('Cover maksimal 1MB');
+    input.value = '';
+    return;
+  }
+  const reader = new FileReader();
+  reader.onload = e => {
+    document.querySelector('[name=cover_path]').value = e.target.result;
+    document.getElementById('coverPreview').innerHTML = `<img src="${e.target.result}" style="height:80px;border-radius:6px;margin-top:8px">`;
+  };
+  reader.readAsDataURL(file);
+}
+
+function saveBook(e){
+  e.preventDefault();
+  const form = e.target;
+  const data = {
+    judul: form.judul.value.trim(),
+    penulis: form.penulis.value.trim(),
+    penerbit: form.penerbit.value.trim(),
+    tahun: form.tahun.value.trim(),
+    deskripsi: form.deskripsi.value.trim(),
+    file_path: form.file_path.value.trim() || '#',
+    cover_path: form.cover_path.value || ''
+  };
+  const id = parseInt(form.id.value);
+  if (id) { APStore.update('books', id, data); showFlash('Buku berhasil diperbarui'); }
+  else { APStore.add('books', data); showFlash('Buku berhasil ditambahkan'); }
+  closeForm();
+  renderTable();
+  return false;
+}
+
+function deleteBook(id){
+  if (!confirm('Hapus buku ini?')) return;
+  APStore.remove('books', id);
+  showFlash('Buku dihapus');
+  renderTable();
+}
+
+renderTable();
+</script>
+</body>
+</html>
