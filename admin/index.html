@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Login Admin — Aksi Perubahan</title>
+<link rel="stylesheet" href="../assets/admin.css">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="login-page">
+<script>
+  // Redirect jika sudah login
+  if (sessionStorage.getItem('ap_admin') === '1') location.replace('dashboard.html');
+</script>
+<div class="login-box">
+  <div class="login-logo">AP</div>
+  <h1>Panel Admin</h1>
+  <p>Masuk untuk mengelola konten</p>
+  <div id="errorBox" style="display:none" class="alert error"></div>
+  <form id="loginForm">
+    <label>Username</label>
+    <input name="username" id="username" required autofocus autocomplete="username">
+    <label>Password</label>
+    <input type="password" name="password" id="password" required autocomplete="current-password">
+    <button type="submit">Masuk</button>
+  </form>
+  <div style="margin-top:20px;padding:12px;background:#f1f5f9;border-radius:8px;font-size:12px;color:#475569">
+    <b>Demo login:</b> admin / admin123
+  </div>
+  <a href="../index.html" class="back-link">← Kembali ke Website</a>
+</div>
+<script>
+document.getElementById('loginForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const u = document.getElementById('username').value.trim();
+  const p = document.getElementById('password').value;
+  if (u === 'admin' && p === 'admin123') {
+    sessionStorage.setItem('ap_admin', '1');
+    sessionStorage.setItem('ap_admin_nama', 'Administrator');
+    location.href = 'dashboard.html';
+  } else {
+    const eb = document.getElementById('errorBox');
+    eb.textContent = 'Username atau password salah';
+    eb.style.display = 'block';
+  }
+});
+</script>
+</body>
+</html>
