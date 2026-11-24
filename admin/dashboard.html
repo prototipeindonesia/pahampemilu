@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dashboard — Admin</title>
+<link rel="stylesheet" href="../assets/admin.css">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="admin-layout" data-page="dashboard">
+<aside id="sidebar" class="sidebar"></aside>
+<main class="admin-main">
+  <div class="topbar"><b>Halo, <span id="adminName"></span> 👋</b></div>
+  <div id="flash"></div>
+
+  <h1 class="page-title">Dashboard</h1>
+  <p class="page-sub">Ringkasan konten yang tersedia di website</p>
+
+  <div class="alert" style="background:#eff6ff;color:#1e40af;border:1px solid #dbeafe;margin-bottom:20px">
+    ℹ️ <b>Mode Demo:</b> data tersimpan di browser Anda (localStorage). Di versi production, data akan tersimpan di database server.
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon blue">🎬</div>
+      <div><div class="stat-num" id="cVideos">0</div><div class="stat-lbl">Video Pembelajaran</div></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon green">📋</div>
+      <div><div class="stat-num" id="cRules">0</div><div class="stat-lbl">Aturan Kepemiluan</div></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon orange">📚</div>
+      <div><div class="stat-num" id="cBooks">0</div><div class="stat-lbl">Referensi Buku</div></div>
+    </div>
+  </div>
+
+  <div class="quick-links">
+    <h3>Aksi Cepat</h3>
+    <a href="videos.html" class="btn btn-primary">🎬 Kelola Video</a>
+    <a href="rules.html" class="btn btn-primary">📋 Kelola Aturan</a>
+    <a href="books.html" class="btn btn-primary">📚 Kelola Buku</a>
+    <button onclick="resetData()" class="btn btn-secondary" style="margin-left:auto">🔄 Reset Data Demo</button>
+  </div>
+</main>
+
+<script src="../assets/store.js"></script>
+<script src="../assets/admin-header.js"></script>
+<script>
+document.getElementById('cVideos').textContent = APStore.getList('videos').length;
+document.getElementById('cRules').textContent = APStore.getList('rules').length;
+document.getElementById('cBooks').textContent = APStore.getList('books').length;
+
+function resetData(){
+  if (confirm('Reset semua data ke kondisi awal? Semua perubahan akan hilang.')) {
+    APStore.reset();
+    showFlash('Data berhasil direset ke kondisi awal');
+    setTimeout(() => location.reload(), 800);
+  }
+}
+</script>
+</body>
+</html>
