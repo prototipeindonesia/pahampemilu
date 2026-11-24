@@ -13,7 +13,6 @@
 <header class="site-header">
   <div class="container nav-container">
     <a href="#" class="brand">
-      <!-- Logo Kubus dengan Bendera -->
       <div class="brand-logo">
         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#E31E24"/>
@@ -27,16 +26,15 @@
       </div>
     </a>
 
+    <!-- Update Menu Navigasi -->
     <nav class="nav-links">
-      <a href="#" class="active"><span class="icon">🏠</span> Beranda</a>
-      <a href="#video"><span class="icon">📖</span> Materi Pembelajaran <span class="caret">▼</span></a>
-      <a href="#video"><span class="icon">📝</span> Quiz & Evaluasi</a>
-      <a href="#buku"><span class="icon">📚</span> Referensi</a>
-      <a href="#"><span class="icon">ℹ️</span> Tentang</a>
+      <a href="#" class="active" onclick="scrollToTop(event)"><span class="icon">🏠</span> Beranda</a>
+      <a href="#" onclick="event.preventDefault(); openQuiz()"><span class="icon">📝</span> Quiz & Evaluasi</a>
+      <a href="#" onclick="event.preventDefault(); openTentang()"><span class="icon">ℹ️</span> Tentang</a>
     </nav>
 
     <div class="nav-search">
-      <input type="text" placeholder="Cari materi...">
+      <input type="text" placeholder="Cari materi..." id="globalSearch" onkeyup="globalSearch(this.value)">
       <span class="search-icon">🔍</span>
     </div>
   </div>
@@ -45,7 +43,7 @@
 <!-- HERO SECTION -->
 <section class="hero-section">
   <div class="hero-bg">
-    <!-- Menggunakan gambar background.png -->
+    <!-- Gambar background.png -->
     <img src="assets/background.png" alt="Siswa Paham Pemilu" class="hero-image">
     <div class="hero-overlay"></div>
   </div>
@@ -64,28 +62,22 @@
   </div>
 </section>
 
-<!-- KATEGORI KARTU (Overlapping) -->
+<!-- KATEGORI KARTU -->
 <div class="container category-wrapper">
   <div class="category-grid">
     <a href="#video" class="cat-card cat-blue">
       <div class="cat-icon">▶</div>
-      <div class="cat-text">
-        <h3>Video<br>Pembelajaran</h3>
-      </div>
+      <div class="cat-text"><h3>Video<br>Pembelajaran</h3></div>
       <div class="cat-arrow">➔</div>
     </a>
     <a href="#aturan" class="cat-card cat-green">
       <div class="cat-icon">📄</div>
-      <div class="cat-text">
-        <h3>Aturan<br>Kepemiluan</h3>
-      </div>
+      <div class="cat-text"><h3>Aturan<br>Kepemiluan</h3></div>
       <div class="cat-arrow">➔</div>
     </a>
     <a href="#buku" class="cat-card cat-orange">
       <div class="cat-icon">📖</div>
-      <div class="cat-text">
-        <h3>Referensi<br>Buku</h3>
-      </div>
+      <div class="cat-text"><h3>Referensi<br>Buku</h3></div>
       <div class="cat-arrow">➔</div>
     </a>
   </div>
@@ -104,12 +96,9 @@
           <p>Simak video edukatif seputar Pemilu dan Demokrasi</p>
         </div>
       </div>
-      <a href="#" class="btn-lihat">Lihat Semua ➔</a>
+      <a href="#" onclick="event.preventDefault(); openAll('video')" class="btn-lihat">Lihat Semua ➔</a>
     </div>
-    
-    <div class="video-grid" id="videoGrid">
-      <!-- Diisi via JavaScript -->
-    </div>
+    <div class="video-grid" id="videoGrid"></div>
   </section>
 
   <!-- SECTION 2: ATURAN -->
@@ -122,12 +111,9 @@
           <p>Pelajari regulasi dan aturan penting seputar Pemilu</p>
         </div>
       </div>
-      <a href="#" class="btn-lihat">Lihat Semua ➔</a>
+      <a href="#" onclick="event.preventDefault(); openAll('aturan')" class="btn-lihat">Lihat Semua ➔</a>
     </div>
-    
-    <div class="rule-grid" id="rulesGrid">
-      <!-- Diisi via JavaScript -->
-    </div>
+    <div class="rule-grid" id="rulesGrid"></div>
   </section>
 
   <!-- SECTION 3: BUKU -->
@@ -140,12 +126,9 @@
           <p>Baca buku dan modul seputar Pemilu</p>
         </div>
       </div>
-      <a href="#" class="btn-lihat">Lihat Semua ➔</a>
+      <a href="#" onclick="event.preventDefault(); openAll('buku')" class="btn-lihat">Lihat Semua ➔</a>
     </div>
-    
-    <div class="book-grid" id="booksGrid">
-      <!-- Diisi via JavaScript -->
-    </div>
+    <div class="book-grid" id="booksGrid"></div>
   </section>
 
 </div>
@@ -166,11 +149,9 @@
         <div class="brand-title" style="color:#fff">Paham<br>Pemilu</div>
       </div>
     </div>
-    
     <div class="footer-tagline">
       <em>Belajar Hari Ini,<br>Untuk Demokrasi Esok</em>
     </div>
-    
     <div class="footer-socials">
       <a href="#">▶</a>
       <a href="#">📷</a>
@@ -180,7 +161,9 @@
   </div>
 </footer>
 
-<!-- MODAL VIDEO -->
+<!-- ================= MODALS ================= -->
+
+<!-- 1. Modal Video Player -->
 <div class="modal" id="videoModal">
   <div class="modal-box">
     <button class="modal-close" onclick="closeVideo()">✕</button>
@@ -188,87 +171,128 @@
   </div>
 </div>
 
+<!-- 2. Modal Lihat Semua File -->
+<div class="modal" id="allModal">
+  <div class="modal-box large-modal">
+    <button class="modal-close" onclick="closeAll()">✕</button>
+    <h2 id="allModalTitle" style="color:var(--navy); margin-bottom: 20px;">Semua Item</h2>
+    <div class="modal-scroll-area">
+      <div class="video-grid" id="allGrid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- 3. Modal Quiz & Evaluasi -->
+<div class="modal" id="quizModal">
+  <div class="modal-box large-modal">
+    <button class="modal-close" onclick="closeQuiz()">✕</button>
+    <h2 style="color:var(--navy); margin-bottom: 20px;">Quiz & Evaluasi</h2>
+    <div id="quizContainer" class="quiz-container">
+      <!-- Diisi via JS -->
+    </div>
+  </div>
+</div>
+
+<!-- 4. Modal Tentang -->
+<div class="modal" id="tentangModal">
+  <div class="modal-box large-modal">
+    <button class="modal-close" onclick="closeTentang()">✕</button>
+    <div class="tentang-content">
+      <h2 style="color:var(--navy); margin-bottom: 16px;">Tentang Paham Pemilu</h2>
+      <p><strong>Paham Pemilu</strong> adalah platform media edukasi digital yang dirancang khusus untuk membantu guru dan siswa memahami seluk-beluk kepemiluan dan demokrasi di Indonesia.</p>
+      <p>Tujuan kami adalah menciptakan generasi muda yang cerdas dalam berdemokrasi, memahami hak dan kewajibannya sebagai warga negara, serta memiliki kesadaran tinggi untuk berpartisipasi dalam Pemilu.</p>
+      <p>Melalui video pembelajaran, kumpulan aturan, referensi buku, dan quiz interaktif, kami berharap pendidikan politik dapat diakses dengan mudah, menyenangkan, dan relevan dengan dunia pendidikan.</p>
+    </div>
+  </div>
+</div>
+
 <script src="assets/store.js"></script>
 <script>
-// --- RENDER DATA DARI LOCALSTORAGE ---
+// --- RENDER DATA HOMEPAGE ---
 function render(){
   const videos = APStore.getList('videos');
   const rules  = APStore.getList('rules');
   const books  = APStore.getList('books');
 
-  // 1. Render Video
+  // Render Video (Max 3)
   const vg = document.getElementById('videoGrid');
   if (!videos.length){
     vg.innerHTML = '<div class="empty">Belum ada video.</div>';
   } else {
-    vg.innerHTML = videos.slice(0, 3).map(v => {
-      const thumb = v.tipe === 'youtube' ? ytThumb(v.url) : 'https://images.unsplash.com/photo-1540910419892-4a36d2c3266c?q=80&w=600&auto=format&fit=crop';
-      const dataVideo = esc(JSON.stringify({tipe:v.tipe, src: v.tipe==='youtube' ? ytEmbed(v.url) : v.file_path}));
-      return `
-        <div class="v-card" data-video='${dataVideo}' onclick="openVideo(this)">
-          <div class="v-thumb" style="background-image:url('${thumb}')">
-            <div class="v-play">▶</div>
-            <span class="v-duration">08:45</span>
-          </div>
-          <div class="v-info">
-            <div class="v-yt-icon">▶</div>
-            <div>
-              <h3>${esc(v.judul)}</h3>
-              <p>${esc(v.kategori)}</p>
-            </div>
-          </div>
-        </div>`;
-    }).join('');
+    vg.innerHTML = videos.slice(0, 3).map(v => generateVideoCard(v)).join('');
   }
 
-  // 2. Render Aturan
+  // Render Aturan (Max 3)
   const rg = document.getElementById('rulesGrid');
   if (!rules.length){
     rg.innerHTML = '<div class="empty">Belum ada aturan.</div>';
   } else {
-    rg.innerHTML = rules.slice(0, 3).map(r => {
-      return `
-        <div class="r-card">
-          <div class="r-icon">📄</div>
-          <div class="r-info">
-            <span class="r-badge">${esc(r.kategori)}</span>
-            <h3>${esc(r.judul)}</h3>
-            <p>${esc((r.deskripsi||'').slice(0, 50))}...</p>
-            <a href="${esc(r.file_path||'#')}" target="_blank" class="r-btn">Download ⬇</a>
-          </div>
-        </div>`;
-    }).join('');
+    rg.innerHTML = rules.slice(0, 3).map(r => generateRuleCard(r)).join('');
   }
 
-  // 3. Render Buku (Desain Cover CSS)
+  // Render Buku (Max 5)
   const bg = document.getElementById('booksGrid');
   if (!books.length){
     bg.innerHTML = '<div class="empty">Belum ada buku.</div>';
   } else {
-    const coverClasses = ['c-navy', 'c-white', 'c-red', 'c-blue', 'c-yellow'];
-    bg.innerHTML = books.slice(0, 5).map((b, i) => {
-      const cls = coverClasses[i % coverClasses.length];
-      return `
-        <div class="b-card">
-          <div class="b-cover ${cls}">
-            ${b.cover_path ? `<img src="${esc(b.cover_path)}" alt="Cover">` : `
-              <h3>${esc(b.judul)}</h3>
-              <div class="b-deco"></div>
-            `}
-          </div>
-        </div>`;
-    }).join('');
+    bg.innerHTML = books.slice(0, 5).map((b, i) => generateBookCard(b, i)).join('');
   }
 }
 
-// --- LOGIKA MODAL VIDEO ---
-function openVideo(el){
-  const data = JSON.parse(el.dataset.video);
+// --- TEMPLATE FUNCTIONS (Agar bisa dipakai di Homepage & Lihat Semua) ---
+function generateVideoCard(v) {
+  // Gunakan thumbnail default dari GDrive atau gambar ilustrasi
+  const thumb = v.tipe === 'youtube' ? ytThumb(v.url) : 'https://images.unsplash.com/photo-1540910419892-4a36d2c3266c?q=80&w=600&auto=format&fit=crop';
+  const dataVideo = esc(JSON.stringify({tipe:v.tipe, src: v.url}));
+  return `
+    <div class="v-card" onclick='openVideo(${dataVideo})'>
+      <div class="v-thumb" style="background-image:url('${thumb}')">
+        <div class="v-play">▶</div>
+      </div>
+      <div class="v-info">
+        <div class="v-yt-icon">▶</div>
+        <div>
+          <h3>${esc(v.judul)}</h3>
+          <p>${esc(v.kategori)}</p>
+        </div>
+      </div>
+    </div>`;
+}
+
+function generateRuleCard(r) {
+  return `
+    <div class="r-card">
+      <div class="r-icon">📄</div>
+      <div class="r-info">
+        <span class="r-badge">${esc(r.kategori)}</span>
+        <h3>${esc(r.judul)}</h3>
+        <p>${esc(r.deskripsi||'')}</p>
+        <a href="${esc(r.file_path||'#')}" target="_blank" class="r-btn">Buka Drive ⬇</a>
+      </div>
+    </div>`;
+}
+
+function generateBookCard(b, index) {
+  const coverClasses = ['c-navy', 'c-white', 'c-red', 'c-blue', 'c-yellow'];
+  const cls = coverClasses[index % coverClasses.length];
+  return `
+    <div class="b-card" onclick="window.open('${esc(b.file_path||'#')}', '_blank')" style="cursor:pointer">
+      <div class="b-cover ${cls}">
+        <h3>${esc(b.judul)}</h3>
+      </div>
+    </div>`;
+}
+
+// --- LOGIKA VIDEO MODAL ---
+function openVideo(data){
   const content = document.getElementById('videoContent');
   if (!data.src){
     content.innerHTML = '<div style="padding:60px;text-align:center;color:#fff">Video belum diset.</div>';
   } else if (data.tipe === 'youtube'){
-    content.innerHTML = `<iframe src="${data.src}?autoplay=1" allowfullscreen></iframe>`;
+    content.innerHTML = `<iframe src="${data.src}?autoplay=1" allowfullscreen allow="autoplay; encrypted-media"></iframe>`;
+  } else if (data.tipe === 'gdrive') {
+    // Memutar Google Drive Video
+    content.innerHTML = `<iframe src="${data.src}" allowfullscreen allow="autoplay"></iframe>`;
   } else {
     content.innerHTML = `<video src="${data.src}" controls autoplay></video>`;
   }
@@ -278,11 +302,117 @@ function closeVideo(){
   document.getElementById('videoContent').innerHTML = '';
   document.getElementById('videoModal').classList.remove('open');
 }
+
+// --- LOGIKA LIHAT SEMUA ---
+function openAll(type){
+  const title = document.getElementById('allModalTitle');
+  const grid = document.getElementById('allGrid');
+  
+  if (type === 'video') {
+    title.textContent = 'Semua Video Pembelajaran';
+    grid.className = 'video-grid';
+    grid.innerHTML = APStore.getList('videos').map(v => generateVideoCard(v)).join('');
+  } else if (type === 'aturan') {
+    title.textContent = 'Semua Aturan Kepemiluan';
+    grid.className = 'rule-grid';
+    grid.innerHTML = APStore.getList('rules').map(r => generateRuleCard(r)).join('');
+  } else if (type === 'buku') {
+    title.textContent = 'Semua Referensi Buku';
+    grid.className = 'book-grid';
+    grid.innerHTML = APStore.getList('books').map((b, i) => generateBookCard(b, i)).join('');
+  }
+  
+  document.getElementById('allModal').classList.add('open');
+}
+function closeAll(){
+  document.getElementById('allModal').classList.remove('open');
+}
+
+// --- LOGIKA TENTANG ---
+function openTentang() { document.getElementById('tentangModal').classList.add('open'); }
+function closeTentang() { document.getElementById('tentangModal').classList.remove('open'); }
+
+// --- LOGIKA QUIZ & EVALUASI ---
+const quizData = [
+  { q: "Apa asas utama Pemilu di Indonesia?", options: ["Bebas, Rahasia, Jujur, Adil", "Langsung, Umum, Bebas, Rahasia, Jujur, Adil (LUBER JURDIL)", "Cepat, Tepat, Murah", "Terbuka dan Transparan"], answer: 1 },
+  { q: "Siapa penyelenggara Pemilu di Indonesia?", options: ["Pemerintah", "DPR", "KPU, Bawaslu, dan DKPP", "Polisi"], answer: 2 },
+  { q: "Pada usia berapa seseorang berhak memberikan suara dalam Pemilu di Indonesia?", options: ["15 Tahun", "17 Tahun atau sudah menikah", "21 Tahun", "18 Tahun"], answer: 1 },
+  { q: "Apa singkatan dari KPU?", options: ["Komisi Pemilihan Umum", "Komite Pemilu Utama", "Kantor Pemungutan Suara", "Komunitas Peduli Pemilu"], answer: 0 },
+  { q: "Apa fungsi utama surat suara?", options: ["Sebagai tanda pengenal", "Untuk mencoblos calon pilihan", "Sebagai bukti sudah memilih", "Untuk absensi kehadiran"], answer: 1 }
+];
+
+function openQuiz() {
+  const container = document.getElementById('quizContainer');
+  container.innerHTML = `
+    <form id="quizForm" onsubmit="submitQuiz(event)">
+      ${quizData.map((item, index) => `
+        <div class="quiz-item">
+          <p class="quiz-question">${index + 1}. ${item.q}</p>
+          <div class="quiz-options">
+            ${item.options.map((opt, i) => `
+              <label class="quiz-label">
+                <input type="radio" name="q${index}" value="${i}" required>
+                <span class="quiz-radio-text">${opt}</span>
+              </label>
+            `).join('')}
+          </div>
+        </div>
+      `).join('')}
+      <button type="submit" class="btn-submit-quiz">Selesai & Lihat Skor</button>
+    </form>
+  `;
+  document.getElementById('quizModal').classList.add('open');
+}
+
+function closeQuiz() {
+  document.getElementById('quizModal').classList.remove('open');
+}
+
+function submitQuiz(e) {
+  e.preventDefault();
+  let score = 0;
+  const form = e.target;
+  
+  quizData.forEach((item, index) => {
+    const selected = form.querySelector(`input[name="q${index}"]:checked`);
+    if (selected && parseInt(selected.value) === item.answer) {
+      score++;
+    }
+  });
+
+  const total = quizData.length;
+  const percentage = Math.round((score / total) * 100);
+  let message = "";
+  
+  if (percentage === 100) message = "Luar biasa! Pemahaman Anda sangat sempurna.";
+  else if (percentage >= 80) message = "Bagus sekali! Pemahaman Anda sangat baik.";
+  else if (percentage >= 60) message = "Cukup baik! Terus tingkatkan belajar Anda.";
+  else message = "Jangan menyerah! Mari pelajari kembali materi Pemilu.";
+
+  document.getElementById('quizContainer').innerHTML = `
+    <div class="quiz-result">
+      <h3>Skor Anda</h3>
+      <div class="score-circle">${percentage}</div>
+      <p class="score-text">Benar ${score} dari ${total} soal</p>
+      <p class="score-message">${message}</p>
+      <button onclick="openQuiz()" class="btn-submit-quiz">Ulangi Quiz</button>
+    </div>
+  `;
+}
+
+// --- UTILITAS LAINNYA ---
+function scrollToTop(e) { e.preventDefault(); window.scrollTo({top:0, behavior:'smooth'}); }
+
 document.getElementById('videoModal').addEventListener('click', e => {
   if (e.target.classList.contains('modal')) closeVideo();
 });
+document.getElementById('allModal').addEventListener('click', e => {
+  if (e.target.classList.contains('modal')) closeAll();
+});
+document.getElementById('tentangModal').addEventListener('click', e => {
+  if (e.target.classList.contains('modal')) closeTentang();
+});
 
-// Mulai Render
 render();
 </script>
 </body>
