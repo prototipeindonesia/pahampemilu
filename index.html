@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Aksi Perubahan — Portal Pembelajaran Kepemiluan</title>
+<link rel="stylesheet" href="assets/public.css">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container nav">
+    <a href="#" class="brand">
+      <div class="brand-icon">AP</div>
+      <div>
+        <div class="brand-title">Aksi Perubahan</div>
+        <div class="brand-sub">Portal Pembelajaran Kepemiluan Sekolah</div>
+      </div>
+    </a>
+    <nav class="nav-links">
+      <a href="#video">Video</a>
+      <a href="#aturan">Aturan</a>
+      <a href="#buku">Buku</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <span class="badge">📚 Belajar Kepemiluan Sejak Dini</span>
+    <h1>Wujudkan <span>Pemilu Cerdas</span><br>dari Lingkungan Sekolah</h1>
+    <p>Akses video pembelajaran, aturan kepemiluan, dan referensi buku secara mudah untuk mendukung aksi perubahan di sekolah Anda.</p>
+    <div class="hero-stats" id="heroStats">
+      <div><strong id="statVideos">0</strong><span>Video</span></div>
+      <div><strong id="statRules">0</strong><span>Aturan</span></div>
+      <div><strong id="statBooks">0</strong><span>Buku</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="container section" id="video">
+  <div class="section-head">
+    <div>
+      <h2>🎬 Video Pembelajaran</h2>
+      <p>Tonton video edukasi seputar kepemiluan</p>
+    </div>
+    <input class="search" placeholder="Cari video..." onkeyup="filterCards(this,'videoGrid')">
+  </div>
+  <div class="grid" id="videoGrid"></div>
+</section>
+
+<section class="container section alt" id="aturan">
+  <div class="section-head">
+    <div>
+      <h2>📋 Aturan Kepemiluan</h2>
+      <p>Dokumen resmi & peraturan terkait pemilu</p>
+    </div>
+    <input class="search" placeholder="Cari aturan..." onkeyup="filterCards(this,'rulesGrid')">
+  </div>
+  <div class="grid" id="rulesGrid"></div>
+</section>
+
+<section class="container section" id="buku">
+  <div class="section-head">
+    <div>
+      <h2>📚 Referensi Buku</h2>
+      <p>Buku & literatur pendukung pembelajaran</p>
+    </div>
+    <input class="search" placeholder="Cari buku..." onkeyup="filterCards(this,'booksGrid')">
+  </div>
+  <div class="grid" id="booksGrid"></div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>&copy; <span id="year"></span> Aksi Perubahan — Portal Pembelajaran Kepemiluan Sekolah</p>
+  </div>
+</footer>
+
+<div class="modal" id="videoModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeVideo()">✕</button>
+    <div id="videoContent"></div>
+  </div>
+</div>
+
+<script src="assets/store.js"></script>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+function render(){
+  const videos = APStore.getList('videos');
+  const rules  = APStore.getList('rules');
+  const books  = APStore.getList('books');
+
+  document.getElementById('statVideos').textContent = videos.length;
+  document.getElementById('statRules').textContent = rules.length;
+  document.getElementById('statBooks').textContent = books.length;
+
+  // VIDEOS
+  const vg = document.getElementById('videoGrid');
+  if (!videos.length) {
+    vg.innerHTML = '<div class="empty" style="grid-column:1/-1">Belum ada video pembelajaran.</div>';
+  } else {
+    vg.innerHTML = videos.map(v => {
+      const thumb = v.tipe === 'youtube' ? ytThumb(v.url) : null;
+      const search = (v.judul + ' ' + v.kategori).toLowerCase();
+      const dataVideo = esc(JSON.stringify({tipe:v.tipe, src: v.tipe==='youtube' ? ytEmbed(v.url) : v.file_path, judul:v.judul}));
+      return `
+        <div class="card video-card" data-search="${esc(search)}" data-video='${dataVideo}'>
+          <div class="thumb" ${thumb ? `style="background-image:url('${thumb}')"` : ''}>
+            ${!thumb ? '<div class="thumb-fallback">🎬</div>' : ''}
+            <div class="play-btn">▶</div>
+            <span class="tag">${esc(v.kategori)}</span>
+          </div>
+          <div class="card-body">
+            <h3>${esc(v.judul)}</h3>
+            <p>${esc((v.deskripsi||'').slice(0,90))}${(v.deskripsi||'').length>90?'...':''}</p>
+          </div>
+        </div>`;
+    }).join('');
+    vg.querySelectorAll('.video-card').forEach(card => {
+      card.addEventListener('click', () => openVideo(JSON.parse(card.dataset.video)));
+    });
+  }
+
+  // RULES
+  const rg = document.getElementById('rulesGrid');
+  if (!rules.length) {
+    rg.innerHTML = '<div class="empty" style="grid-column:1/-1">Belum ada aturan yang diunggah.</div>';
+  } else {
+    rg.innerHTML = rules.map(r => {
+      const search = (r.judul + ' ' + r.kategori).toLowerCase();
+      return `
+        <div class="card doc-card" data-search="${esc(search)}">
+          <div class="doc-icon">📄</div>
+          <div class="card-body">
+            <span class="tag-blue">${esc(r.kategori)}</span>
+            <h3>${esc(r.judul)}</h3>
+            <p>${esc((r.deskripsi||'').slice(0,100))}</p>
+            <a href="${esc(r.file_path||'#')}" target="_blank" class="btn-download" onclick="event.stopPropagation()">⬇ Unduh Dokumen</a>
+          </div>
+        </div>`;
+    }).join('');
+  }
+
+  // BOOKS
+  const bg = document.getElementById('booksGrid');
+  if (!books.length) {
+    bg.innerHTML = '<div class="empty" style="grid-column:1/-1">Belum ada buku referensi.</div>';
+  } else {
+    bg.innerHTML = books.map(b => {
+      const search = (b.judul + ' ' + (b.penulis||'') + ' ' + (b.penerbit||'')).toLowerCase();
+      return `
+        <div class="card book-card" data-search="${esc(search)}">
+          <div class="book-cover">
+            ${b.cover_path ? `<img src="${esc(b.cover_path)}" alt="${esc(b.judul)}">` : '<div class="book-fallback">📖</div>'}
+          </div>
+          <div class="card-body">
+            <h3>${esc(b.judul)}</h3>
+            <p class="meta">${esc(b.penulis||'')}${b.tahun?' · '+esc(b.tahun):''}</p>
+            <p>${esc((b.deskripsi||'').slice(0,90))}</p>
+            ${b.file_path && b.file_path !== '#' ? `<a href="${esc(b.file_path)}" target="_blank" class="btn-download">📖 Baca Buku</a>` : ''}
+          </div>
+        </div>`;
+    }).join('');
+  }
+}
+
+function openVideo(data){
+  const content = document.getElementById('videoContent');
+  if (!data.src) {
+    content.innerHTML = '<div style="padding:60px;text-align:center;color:#fff">Video belum diset. Silakan login admin untuk menambahkan URL.</div>';
+  } else if (data.tipe === 'youtube') {
+    content.innerHTML = `<iframe src="${data.src}?autoplay=1" allowfullscreen allow="autoplay; encrypted-media"></iframe>`;
+  } else {
+    content.innerHTML = `<video src="${data.src}" controls autoplay></video>`;
+  }
+  document.getElementById('videoModal').classList.add('open');
+}
+function closeVideo(){
+  document.getElementById('videoContent').innerHTML = '';
+  document.getElementById('videoModal').classList.remove('open');
+}
+document.getElementById('videoModal').addEventListener('click', e => {
+  if (e.target.classList.contains('modal')) closeVideo();
+});
+
+function filterCards(input, gridId){
+  const q = input.value.toLowerCase();
+  document.querySelectorAll('#'+gridId+' > .card').forEach(c => {
+    c.style.display = c.dataset.search.includes(q) ? '' : 'none';
+  });
+}
+
+render();
+</script>
+</body>
+</html>
