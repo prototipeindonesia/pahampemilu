@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Aturan — Admin</title>
+<link rel="stylesheet" href="../assets/admin.css">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="admin-layout" data-page="rules">
+<aside id="sidebar" class="sidebar"></aside>
+<main class="admin-main">
+  <div class="topbar"><b>Halo, <span id="adminName"></span> 👋</b></div>
+  <div id="flash"></div>
+
+  <div class="page-head">
+    <div>
+      <h1 class="page-title">Aturan Kepemiluan</h1>
+      <p class="page-sub" id="countLabel">0 dokumen</p>
+    </div>
+    <button class="btn btn-primary" onclick="openForm()">+ Tambah Aturan</button>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Judul</th><th>Kategori</th><th>Tanggal</th><th>Aksi</th></tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+</main>
+
+<div class="form-modal" id="formModal">
+  <div class="form-modal-box">
+    <h2 id="formTitle">Tambah Aturan</h2>
+    <form id="ruleForm" onsubmit="return saveRule(event)">
+      <input type="hidden" name="id" value="0">
+      <label>Judul Aturan</label>
+      <input name="judul" required>
+      <label>Kategori</label>
+      <input name="kategori" value="Umum" placeholder="Contoh: PKPU, Undang-Undang">
+      <label>Deskripsi</label>
+      <textarea name="deskripsi" rows="3"></textarea>
+      <label>URL File Dokumen (PDF/DOC)</label>
+      <input name="file_path" placeholder="https://...">
+      <p class="hint">Demo: gunakan URL ke file PDF. Di versi production, akan tersedia upload file langsung.</p>
+      <div class="form-actions">
+        <button class="btn btn-primary">💾 Simpan</button>
+        <button type="button" class="btn btn-secondary" onclick="closeForm()">Batal</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="../assets/store.js"></script>
+<script src="../assets/admin-header.js"></script>
+<script>
+function renderTable(){
+  const list = APStore.getList('rules');
+  document.getElementById('countLabel').textContent = list.length + ' dokumen';
+  const tb = document.getElementById('tbody');
+  if (!list.length) {
+    tb.innerHTML = '<tr><td colspan="4" class="empty-row">Belum ada aturan</td></tr>';
+    return;
+  }
+  tb.innerHTML = list.map(r => `
+    <tr>
+      <td><b>${esc(r.judul)}</b></td>
+      <td><span class="tag-blue">${esc(r.kategori)}</span></td>
+      <td>${formatDate(r.created_at)}</td>
+      <td class="actions">
+        ${r.file_path && r.file_path !== '#' ? `<a href="${esc(r.file_path)}" target="_blank" class="btn-sm view">Lihat</a>` : ''}
+        <button class="btn-sm edit" onclick="openForm(${r.id})">Edit</button>
+        <button class="btn-sm delete" onclick="deleteRule(${r.id})">Hapus</button>
+      </td>
+    </tr>`).join('');
+}
+
+function formatDate(iso){
+  return new Date(iso).toLocaleDateString('id-ID', {day:'2-digit', month:'short', year:'numeric'});
+}
+
+function openForm(id){
+  const modal = document.getElementById('formModal');
+  const form = document.getElementById('ruleForm');
+  form.reset();
+  document.getElementById('formTitle').textContent = id ? 'Edit Aturan' : 'Tambah Aturan';
+  if (id) {
+    const r = APStore.getById('rules', id);
+    if (!r) return;
+    form.id.value = r.id;
+    form.judul.value = r.judul;
+    form.kategori.value = r.kategori;
+    form.deskripsi.value = r.deskripsi || '';
+    form.file_path.value = r.file_path === '#' ? '' : (r.file_path || '');
+  } else {
+    form.id.value = 0;
+  }
+  modal.classList.add('open');
+}
+
+function closeForm(){
+  document.getElementById('formModal').classList.remove('open');
+}
+
+function saveRule(e){
+  e.preventDefault();
+  const form = e.target;
+  const data = {
+    judul: form.judul.value.trim(),
+    kategori: form.kategori.value.trim() || 'Umum',
+    deskripsi: form.deskripsi.value.trim(),
+    file_path: form.file_path.value.trim() || '#'
+  };
+  const id = parseInt(form.id.value);
+  if (id) { APStore.update('rules', id, data); showFlash('Aturan berhasil diperbarui'); }
+  else { APStore.add('rules', data); showFlash('Aturan berhasil ditambahkan'); }
+  closeForm();
+  renderTable();
+  return false;
+}
+
+function deleteRule(id){
+  if (!confirm('Hapus aturan ini?')) return;
+  APStore.remove('rules', id);
+  showFlash('Aturan dihapus');
+  renderTable();
+}
+
+renderTable();
+</script>
+</body>
+</html>
