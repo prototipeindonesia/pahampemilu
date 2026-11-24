@@ -3,52 +3,109 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Paham Pemilu — Portal Pembelajaran Kepemiluan Sekolah</title>
+<title>Paham Pemilu — Media Edukasi Kepemiluan</title>
 <link rel="stylesheet" href="assets/public.css">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<div class="bg-overlay"></div>
-
+<!-- NAVBAR -->
 <header class="site-header">
-  <div class="container nav">
+  <div class="container nav-container">
     <a href="#" class="brand">
-      <div class="brand-icon">PP</div>
-      <div>
-        <div class="brand-title">Paham Pemilu</div>
-        <div class="brand-sub">Portal Pembelajaran Kepemiluan Sekolah</div>
+      <div class="brand-logo">
+        <!-- Ikon Buku & Bendera -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="logo-svg"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path><path d="M12 6v7"></path><path d="M9 9h6"></path></svg>
+      </div>
+      <div class="brand-text">
+        <div class="brand-title">Paham<br>Pemilu</div>
       </div>
     </a>
     <nav class="nav-links">
-      <a href="#video">🎬 Video</a>
-      <a href="#aturan">📋 Aturan</a>
-      <a href="#buku">📚 Buku</a>
+      <a href="#" class="active">Beranda</a>
+      <a href="#video">Video Pembelajaran</a>
+      <a href="#aturan">Aturan Kepemiluan</a>
+      <a href="#buku">Referensi Buku</a>
     </nav>
+    <a href="#video" class="btn-nav-cta">Mulai Belajar</a>
   </div>
 </header>
 
-<section class="hero">
-  <div class="hero-decorations" aria-hidden="true">
-    <div class="decoration d1">🎯</div>
-    <div class="decoration d2">✨</div>
-    <div class="decoration d3">📚</div>
-    <div class="decoration d4">🗳️</div>
-    <div class="decoration d5">💡</div>
-    <div class="decoration d6">🌟</div>
+<!-- HERO SECTION -->
+<section class="hero-new">
+  <div class="container hero-layout">
+    
+    <!-- Kiri: Teks & CTA -->
+    <div class="hero-left">
+      <!-- Dekorasi Melayang -->
+      <div class="deco-doc d-top">📄</div>
+      <div class="deco-doc d-bottom">📝</div>
+      <div class="deco-sparkle s-1">✨</div>
+      <div class="deco-sparkle s-2">⭐</div>
+
+      <h1 class="hero-title">Paham Pemilu</h1>
+      <h2 class="hero-subtitle">Media Edukasi<br>untuk Guru & Siswa</h2>
+      <p class="hero-desc">Pusat Belajar, Regulasi, dan Referensi Kepemiluan dalam Satu Pintu.</p>
+      
+      <div class="hero-buttons">
+        <a href="#video" class="btn-primary">Tonton Video</a>
+        <a href="#buku" class="btn-secondary">Lihat Buku</a>
+      </div>
+    </div>
+
+    <!-- Kanan: Gambar Sekolah -->
+    <div class="hero-right">
+      <div class="image-mask">
+        <!-- Pastikan file background.png ada di folder assets/ -->
+        <img src="assets/background.png" alt="Suasana Sekolah" class="hero-img" onerror="this.src='https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=1000&auto=format&fit=crop'">
+      </div>
+    </div>
+
   </div>
-  <div class="container">
-    <span class="badge">📚 Belajar Kepemiluan Sejak Dini</span>
-    <h1>Wujudkan <span class="gradient-text">Pemilu Cerdas</span><br>dari Lingkungan Sekolah</h1>
-    <p>Akses video pembelajaran, aturan kepemiluan, dan referensi buku secara mudah untuk mendukung aksi perubahan di sekolah Anda.</p>
-    <div class="hero-stats" id="heroStats">
-      <div><strong id="statVideos">0</strong><span>Video</span></div>
-      <div><strong id="statRules">0</strong><span>Aturan</span></div>
-      <div><strong id="statBooks">0</strong><span>Buku</span></div>
+
+  <!-- KARTU NAVIGASI (Bottom Cards) -->
+  <div class="container hero-cards-wrapper">
+    <div class="hero-cards">
+      
+      <!-- Card Video -->
+      <a href="#video" class="nav-card card-blue">
+        <div class="card-icon-wrap">
+          <span class="card-emoji">📺</span>
+        </div>
+        <div class="card-text">
+          <h3>Video<br>Pembelajaran</h3>
+        </div>
+        <div class="card-arrow">➔</div>
+      </a>
+
+      <!-- Card Aturan -->
+      <a href="#aturan" class="nav-card card-green">
+        <div class="card-icon-wrap">
+          <span class="card-emoji">📜</span>
+        </div>
+        <div class="card-text">
+          <h3>Aturan<br>Kepemiluan</h3>
+        </div>
+        <div class="card-arrow">➔</div>
+      </a>
+
+      <!-- Card Buku -->
+      <a href="#buku" class="nav-card card-orange">
+        <div class="card-icon-wrap">
+          <span class="card-emoji">📚</span>
+        </div>
+        <div class="card-text">
+          <h3>Referensi<br>Buku</h3>
+        </div>
+        <div class="card-arrow">➔</div>
+      </a>
+
     </div>
   </div>
 </section>
 
-<section class="container section" id="video">
+<!-- SECTION VIDEO -->
+<section class="container section bg-light" id="video">
   <div class="section-head">
     <div>
       <h2>🎬 Video Pembelajaran</h2>
@@ -59,7 +116,8 @@
   <div class="grid" id="videoGrid"></div>
 </section>
 
-<section class="container section alt" id="aturan">
+<!-- SECTION ATURAN -->
+<section class="container section" id="aturan">
   <div class="section-head">
     <div>
       <h2>📋 Aturan Kepemiluan</h2>
@@ -70,7 +128,8 @@
   <div class="grid" id="rulesGrid"></div>
 </section>
 
-<section class="container section" id="buku">
+<!-- SECTION BUKU -->
+<section class="container section bg-light" id="buku">
   <div class="section-head">
     <div>
       <h2>📚 Referensi Buku</h2>
@@ -83,10 +142,11 @@
 
 <footer class="site-footer">
   <div class="container">
-    <p>&copy; <span id="year"></span> Paham Pemilu — Portal Pembelajaran Kepemiluan Sekolah</p>
+    <p>&copy; <span id="year"></span> Paham Pemilu — Media Edukasi Kepemiluan Sekolah</p>
   </div>
 </footer>
 
+<!-- MODAL VIDEO -->
 <div class="modal" id="videoModal">
   <div class="modal-box">
     <button class="modal-close" onclick="closeVideo()">✕</button>
@@ -98,46 +158,13 @@
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// ===== ANIMATED COUNTER =====
-function animateCount(el, target){
-  if (target === 0) { el.textContent = '0'; return; }
-  let current = 0;
-  const step = Math.max(1, Math.ceil(target / 25));
-  const timer = setInterval(() => {
-    current += step;
-    if (current >= target) { current = target; clearInterval(timer); }
-    el.textContent = current;
-  }, 30);
-}
-
-// ===== SCROLL REVEAL =====
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('revealed');
-      observer.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.12 });
-
-function observeCards(container){
-  container.querySelectorAll('.card').forEach((card, i) => {
-    card.style.animationDelay = (i * 0.08) + 's';
-    observer.observe(card);
-  });
-}
-
-// ===== RENDER =====
+// --- Render Data & Animasi ---
 function render(){
   const videos = APStore.getList('videos');
   const rules  = APStore.getList('rules');
   const books  = APStore.getList('books');
 
-  animateCount(document.getElementById('statVideos'), videos.length);
-  animateCount(document.getElementById('statRules'), rules.length);
-  animateCount(document.getElementById('statBooks'), books.length);
-
-  // VIDEOS
+  // Render Videos
   const vg = document.getElementById('videoGrid');
   if (!videos.length){
     vg.innerHTML = '<div class="empty">Belum ada video pembelajaran.</div>';
@@ -162,10 +189,9 @@ function render(){
     vg.querySelectorAll('.video-card').forEach(card => {
       card.addEventListener('click', () => openVideo(JSON.parse(card.dataset.video)));
     });
-    observeCards(vg);
   }
 
-  // RULES
+  // Render Rules
   const rg = document.getElementById('rulesGrid');
   if (!rules.length){
     rg.innerHTML = '<div class="empty">Belum ada aturan yang diunggah.</div>';
@@ -183,10 +209,9 @@ function render(){
           </div>
         </div>`;
     }).join('');
-    observeCards(rg);
   }
 
-  // BOOKS
+  // Render Books
   const bg = document.getElementById('booksGrid');
   if (!books.length){
     bg.innerHTML = '<div class="empty">Belum ada buku referensi.</div>';
@@ -206,7 +231,6 @@ function render(){
           </div>
         </div>`;
     }).join('');
-    observeCards(bg);
   }
 }
 
