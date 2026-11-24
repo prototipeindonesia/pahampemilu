@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Paham Pemilu — Media Edukasi Kepemiluan</title>
+<title>Paham Pemilu — Media Edukasi</title>
 <link rel="stylesheet" href="assets/public.css">
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -13,136 +13,170 @@
 <header class="site-header">
   <div class="container nav-container">
     <a href="#" class="brand">
+      <!-- Logo Kubus dengan Bendera -->
       <div class="brand-logo">
-        <!-- Ikon Buku & Bendera -->
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="logo-svg"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path><path d="M12 6v7"></path><path d="M9 9h6"></path></svg>
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#E31E24"/>
+          <path d="M2 7V17L12 22V12L2 7Z" fill="#0A2540"/>
+          <path d="M22 7V17L12 22V12L22 7Z" fill="#0066FF"/>
+          <path d="M6 9.5V14L9 15.5V11L6 9.5Z" fill="#FFC107"/>
+        </svg>
       </div>
       <div class="brand-text">
         <div class="brand-title">Paham<br>Pemilu</div>
       </div>
     </a>
+
     <nav class="nav-links">
-      <a href="#" class="active">Beranda</a>
-      <a href="#video">Video Pembelajaran</a>
-      <a href="#aturan">Aturan Kepemiluan</a>
-      <a href="#buku">Referensi Buku</a>
+      <a href="#" class="active"><span class="icon">🏠</span> Beranda</a>
+      <a href="#video"><span class="icon">📖</span> Materi Pembelajaran <span class="caret">▼</span></a>
+      <a href="#video"><span class="icon">📝</span> Quiz & Evaluasi</a>
+      <a href="#buku"><span class="icon">📚</span> Referensi</a>
+      <a href="#"><span class="icon">ℹ️</span> Tentang</a>
     </nav>
-    <a href="#video" class="btn-nav-cta">Mulai Belajar</a>
+
+    <div class="nav-search">
+      <input type="text" placeholder="Cari materi...">
+      <span class="search-icon">🔍</span>
+    </div>
   </div>
 </header>
 
 <!-- HERO SECTION -->
-<section class="hero-new">
-  <div class="container hero-layout">
+<section class="hero-section">
+  <div class="hero-bg">
+    <!-- GANTI URL INI DENGAN GAMBAR ILUSTRASI SISWA + BOROBUDUR ANDA -->
+    <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=2000&auto=format&fit=crop" alt="Siswa Paham Pemilu" class="hero-image">
+    <div class="hero-overlay"></div>
+  </div>
+  
+  <div class="container hero-content">
+    <div class="hero-text">
+      <h1><span class="text-navy">Paham</span> <span class="text-red">Pemilu</span></h1>
+      <h2>Media Edukasi<br>untuk Guru & Siswa</h2>
+      <p>Kenali Pemilu, Pahami Demokrasi,<br>Bangun Masa Depan Bangsa</p>
+      <a href="#video" class="btn-hero">
+        <span class="btn-icon">▶</span>
+        Mulai Belajar
+        <span class="btn-arrow">➔</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- KATEGORI KARTU (Overlapping) -->
+<div class="container category-wrapper">
+  <div class="category-grid">
+    <a href="#video" class="cat-card cat-blue">
+      <div class="cat-icon">▶</div>
+      <div class="cat-text">
+        <h3>Video<br>Pembelajaran</h3>
+      </div>
+      <div class="cat-arrow">➔</div>
+    </a>
+    <a href="#aturan" class="cat-card cat-green">
+      <div class="cat-icon">📄</div>
+      <div class="cat-text">
+        <h3>Aturan<br>Kepemiluan</h3>
+      </div>
+      <div class="cat-arrow">➔</div>
+    </a>
+    <a href="#buku" class="cat-card cat-orange">
+      <div class="cat-icon">📖</div>
+      <div class="cat-text">
+        <h3>Referensi<br>Buku</h3>
+      </div>
+      <div class="cat-arrow">➔</div>
+    </a>
+  </div>
+</div>
+
+<!-- MAIN CONTENT WRAPPER -->
+<div class="container main-content">
+
+  <!-- SECTION 1: VIDEO -->
+  <section class="content-box" id="video">
+    <div class="box-header">
+      <div class="header-left">
+        <div class="header-icon icon-blue">🎬</div>
+        <div>
+          <h2>Video Pembelajaran</h2>
+          <p>Simak video edukatif seputar Pemilu dan Demokrasi</p>
+        </div>
+      </div>
+      <a href="#" class="btn-lihat">Lihat Semua ➔</a>
+    </div>
     
-    <!-- Kiri: Teks & CTA -->
-    <div class="hero-left">
-      <!-- Dekorasi Melayang -->
-      <div class="deco-doc d-top">📄</div>
-      <div class="deco-doc d-bottom">📝</div>
-      <div class="deco-sparkle s-1">✨</div>
-      <div class="deco-sparkle s-2">⭐</div>
+    <div class="video-grid" id="videoGrid">
+      <!-- Diisi via JavaScript -->
+    </div>
+  </section>
 
-      <h1 class="hero-title">Paham Pemilu</h1>
-      <h2 class="hero-subtitle">Media Edukasi<br>untuk Guru & Siswa</h2>
-      <p class="hero-desc">Pusat Belajar, Regulasi, dan Referensi Kepemiluan dalam Satu Pintu.</p>
-      
-      <div class="hero-buttons">
-        <a href="#video" class="btn-primary">Tonton Video</a>
-        <a href="#buku" class="btn-secondary">Lihat Buku</a>
+  <!-- SECTION 2: ATURAN -->
+  <section class="content-box" id="aturan">
+    <div class="box-header">
+      <div class="header-left">
+        <div class="header-icon icon-green">⚖️</div>
+        <div>
+          <h2>Aturan Kepemiluan</h2>
+          <p>Pelajari regulasi dan aturan penting seputar Pemilu</p>
+        </div>
       </div>
+      <a href="#" class="btn-lihat">Lihat Semua ➔</a>
     </div>
+    
+    <div class="rule-grid" id="rulesGrid">
+      <!-- Diisi via JavaScript -->
+    </div>
+  </section>
 
-    <!-- Kanan: Gambar Sekolah -->
-    <div class="hero-right">
-      <div class="image-mask">
-        <!-- Pastikan file background.png ada di folder assets/ -->
-        <img src="assets/background.png" alt="Suasana Sekolah" class="hero-img" onerror="this.src='https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=1000&auto=format&fit=crop'">
+  <!-- SECTION 3: BUKU -->
+  <section class="content-box" id="buku">
+    <div class="box-header">
+      <div class="header-left">
+        <div class="header-icon icon-orange">📚</div>
+        <div>
+          <h2>Referensi Buku</h2>
+          <p>Baca buku dan modul seputar Pemilu</p>
+        </div>
       </div>
+      <a href="#" class="btn-lihat">Lihat Semua ➔</a>
     </div>
-
-  </div>
-
-  <!-- KARTU NAVIGASI (Bottom Cards) -->
-  <div class="container hero-cards-wrapper">
-    <div class="hero-cards">
-      
-      <!-- Card Video -->
-      <a href="#video" class="nav-card card-blue">
-        <div class="card-icon-wrap">
-          <span class="card-emoji">📺</span>
-        </div>
-        <div class="card-text">
-          <h3>Video<br>Pembelajaran</h3>
-        </div>
-        <div class="card-arrow">➔</div>
-      </a>
-
-      <!-- Card Aturan -->
-      <a href="#aturan" class="nav-card card-green">
-        <div class="card-icon-wrap">
-          <span class="card-emoji">📜</span>
-        </div>
-        <div class="card-text">
-          <h3>Aturan<br>Kepemiluan</h3>
-        </div>
-        <div class="card-arrow">➔</div>
-      </a>
-
-      <!-- Card Buku -->
-      <a href="#buku" class="nav-card card-orange">
-        <div class="card-icon-wrap">
-          <span class="card-emoji">📚</span>
-        </div>
-        <div class="card-text">
-          <h3>Referensi<br>Buku</h3>
-        </div>
-        <div class="card-arrow">➔</div>
-      </a>
-
+    
+    <div class="book-grid" id="booksGrid">
+      <!-- Diisi via JavaScript -->
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- SECTION VIDEO -->
-<section class="container section bg-light" id="video">
-  <div class="section-head">
-    <div>
-      <h2>🎬 Video Pembelajaran</h2>
-      <p>Tonton video edukasi seputar kepemiluan</p>
-    </div>
-    <input class="search" placeholder="Cari video..." onkeyup="filterCards(this,'videoGrid')">
-  </div>
-  <div class="grid" id="videoGrid"></div>
-</section>
+</div>
 
-<!-- SECTION ATURAN -->
-<section class="container section" id="aturan">
-  <div class="section-head">
-    <div>
-      <h2>📋 Aturan Kepemiluan</h2>
-      <p>Dokumen resmi & peraturan terkait pemilu</p>
-    </div>
-    <input class="search" placeholder="Cari aturan..." onkeyup="filterCards(this,'rulesGrid')">
-  </div>
-  <div class="grid" id="rulesGrid"></div>
-</section>
-
-<!-- SECTION BUKU -->
-<section class="container section bg-light" id="buku">
-  <div class="section-head">
-    <div>
-      <h2>📚 Referensi Buku</h2>
-      <p>Buku & literatur pendukung pembelajaran</p>
-    </div>
-    <input class="search" placeholder="Cari buku..." onkeyup="filterCards(this,'booksGrid')">
-  </div>
-  <div class="grid" id="booksGrid"></div>
-</section>
-
+<!-- FOOTER -->
 <footer class="site-footer">
-  <div class="container">
-    <p>&copy; <span id="year"></span> Paham Pemilu — Media Edukasi Kepemiluan Sekolah</p>
+  <div class="footer-wave"></div>
+  <div class="container footer-content">
+    <div class="footer-brand">
+      <div class="brand-logo" style="border-color:#fff">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#E31E24"/>
+          <path d="M2 7V17L12 22V12L2 7Z" fill="#fff"/>
+          <path d="M22 7V17L12 22V12L22 7Z" fill="#0066FF"/>
+        </svg>
+      </div>
+      <div class="brand-text" style="color:#fff">
+        <div class="brand-title" style="color:#fff">Paham<br>Pemilu</div>
+      </div>
+    </div>
+    
+    <div class="footer-tagline">
+      <em>Belajar Hari Ini,<br>Untuk Demokrasi Esok</em>
+    </div>
+    
+    <div class="footer-socials">
+      <a href="#">▶</a>
+      <a href="#">📷</a>
+      <a href="#">🌐</a>
+      <a href="#">📖</a>
+    </div>
   </div>
 </footer>
 
@@ -156,90 +190,85 @@
 
 <script src="assets/store.js"></script>
 <script>
-document.getElementById('year').textContent = new Date().getFullYear();
-
-// --- Render Data & Animasi ---
+// --- RENDER DATA DARI LOCALSTORAGE ---
 function render(){
   const videos = APStore.getList('videos');
   const rules  = APStore.getList('rules');
   const books  = APStore.getList('books');
 
-  // Render Videos
+  // 1. Render Video
   const vg = document.getElementById('videoGrid');
   if (!videos.length){
-    vg.innerHTML = '<div class="empty">Belum ada video pembelajaran.</div>';
+    vg.innerHTML = '<div class="empty">Belum ada video.</div>';
   } else {
-    vg.innerHTML = videos.map(v => {
-      const thumb = v.tipe === 'youtube' ? ytThumb(v.url) : null;
-      const search = (v.judul + ' ' + v.kategori).toLowerCase();
-      const dataVideo = esc(JSON.stringify({tipe:v.tipe, src: v.tipe==='youtube' ? ytEmbed(v.url) : v.file_path, judul:v.judul}));
+    vg.innerHTML = videos.slice(0, 3).map(v => {
+      const thumb = v.tipe === 'youtube' ? ytThumb(v.url) : 'https://images.unsplash.com/photo-1540910419892-4a36d2c3266c?q=80&w=600&auto=format&fit=crop';
+      const dataVideo = esc(JSON.stringify({tipe:v.tipe, src: v.tipe==='youtube' ? ytEmbed(v.url) : v.file_path}));
       return `
-        <div class="card video-card" data-search="${esc(search)}" data-video='${dataVideo}'>
-          <div class="thumb" ${thumb ? `style="background-image:url('${thumb}')"` : ''}>
-            ${!thumb ? '<div class="thumb-fallback">🎬</div>' : ''}
-            <div class="play-btn">▶</div>
-            <span class="tag">${esc(v.kategori)}</span>
+        <div class="v-card" data-video='${dataVideo}' onclick="openVideo(this)">
+          <div class="v-thumb" style="background-image:url('${thumb}')">
+            <div class="v-play">▶</div>
+            <span class="v-duration">08:45</span>
           </div>
-          <div class="card-body">
-            <h3>${esc(v.judul)}</h3>
-            <p>${esc((v.deskripsi||'').slice(0,90))}${(v.deskripsi||'').length>90?'...':''}</p>
+          <div class="v-info">
+            <div class="v-yt-icon">▶</div>
+            <div>
+              <h3>${esc(v.judul)}</h3>
+              <p>${esc(v.kategori)}</p>
+            </div>
           </div>
         </div>`;
     }).join('');
-    vg.querySelectorAll('.video-card').forEach(card => {
-      card.addEventListener('click', () => openVideo(JSON.parse(card.dataset.video)));
-    });
   }
 
-  // Render Rules
+  // 2. Render Aturan
   const rg = document.getElementById('rulesGrid');
   if (!rules.length){
-    rg.innerHTML = '<div class="empty">Belum ada aturan yang diunggah.</div>';
+    rg.innerHTML = '<div class="empty">Belum ada aturan.</div>';
   } else {
-    rg.innerHTML = rules.map(r => {
-      const search = (r.judul + ' ' + r.kategori).toLowerCase();
+    rg.innerHTML = rules.slice(0, 3).map(r => {
       return `
-        <div class="card doc-card" data-search="${esc(search)}">
-          <div class="doc-icon">📄</div>
-          <div class="card-body">
-            <span class="tag-blue">${esc(r.kategori)}</span>
+        <div class="r-card">
+          <div class="r-icon">📄</div>
+          <div class="r-info">
+            <span class="r-badge">${esc(r.kategori)}</span>
             <h3>${esc(r.judul)}</h3>
-            <p>${esc((r.deskripsi||'').slice(0,100))}</p>
-            <a href="${esc(r.file_path||'#')}" target="_blank" class="btn-download" onclick="event.stopPropagation()">⬇ Unduh</a>
+            <p>${esc((r.deskripsi||'').slice(0, 50))}...</p>
+            <a href="${esc(r.file_path||'#')}" target="_blank" class="r-btn">Download ⬇</a>
           </div>
         </div>`;
     }).join('');
   }
 
-  // Render Books
+  // 3. Render Buku (Desain Cover CSS)
   const bg = document.getElementById('booksGrid');
   if (!books.length){
-    bg.innerHTML = '<div class="empty">Belum ada buku referensi.</div>';
+    bg.innerHTML = '<div class="empty">Belum ada buku.</div>';
   } else {
-    bg.innerHTML = books.map(b => {
-      const search = (b.judul + ' ' + (b.penulis||'') + ' ' + (b.penerbit||'')).toLowerCase();
+    const coverClasses = ['c-navy', 'c-white', 'c-red', 'c-blue', 'c-yellow'];
+    bg.innerHTML = books.slice(0, 5).map((b, i) => {
+      const cls = coverClasses[i % coverClasses.length];
       return `
-        <div class="card book-card" data-search="${esc(search)}">
-          <div class="book-cover">
-            ${b.cover_path ? `<img src="${esc(b.cover_path)}" alt="${esc(b.judul)}">` : '<div class="book-fallback">📖</div>'}
-          </div>
-          <div class="card-body">
-            <h3>${esc(b.judul)}</h3>
-            <p class="meta">${esc(b.penulis||'')}${b.tahun?' · '+esc(b.tahun):''}</p>
-            <p>${esc((b.deskripsi||'').slice(0,90))}</p>
-            ${b.file_path && b.file_path !== '#' ? `<a href="${esc(b.file_path)}" target="_blank" class="btn-download" onclick="event.stopPropagation()">📖 Baca</a>` : ''}
+        <div class="b-card">
+          <div class="b-cover ${cls}">
+            ${b.cover_path ? `<img src="${esc(b.cover_path)}" alt="Cover">` : `
+              <h3>${esc(b.judul)}</h3>
+              <div class="b-deco"></div>
+            `}
           </div>
         </div>`;
     }).join('');
   }
 }
 
-function openVideo(data){
+// --- LOGIKA MODAL VIDEO ---
+function openVideo(el){
+  const data = JSON.parse(el.dataset.video);
   const content = document.getElementById('videoContent');
   if (!data.src){
     content.innerHTML = '<div style="padding:60px;text-align:center;color:#fff">Video belum diset.</div>';
   } else if (data.tipe === 'youtube'){
-    content.innerHTML = `<iframe src="${data.src}?autoplay=1" allowfullscreen allow="autoplay; encrypted-media"></iframe>`;
+    content.innerHTML = `<iframe src="${data.src}?autoplay=1" allowfullscreen></iframe>`;
   } else {
     content.innerHTML = `<video src="${data.src}" controls autoplay></video>`;
   }
@@ -252,17 +281,8 @@ function closeVideo(){
 document.getElementById('videoModal').addEventListener('click', e => {
   if (e.target.classList.contains('modal')) closeVideo();
 });
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeVideo();
-});
 
-function filterCards(input, gridId){
-  const q = input.value.toLowerCase();
-  document.querySelectorAll('#'+gridId+' > .card').forEach(c => {
-    c.style.display = c.dataset.search.includes(q) ? '' : 'none';
-  });
-}
-
+// Mulai Render
 render();
 </script>
 </body>
