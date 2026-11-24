@@ -3,8 +3,8 @@ const APStore = (function(){
   const KEY = 'aksi_perubahan_data_v2'; // ubah versi agar data lama ter-reset
   const seed = {
     videos: [
-      {id:1, judul:'Kisah Heroik Mayor Oking: Pejuang Tangguh Tanah Bogor', kategori:'Kisah Pahlawan', tipe:'gdrive', url:'https://drive.google.com/file/d/1l_nqVkzULpRTIa3TZECHaZxQ7sX3r8d8/view?usp=drivesdk', created_at:new Date().toISOString()},
-      {id:2, judul:'Fungsi dan Peran KPU', deskripsi:'Dalam Penyelenggaraan Pemilu', kategori:'KPU', tipe:'gdrive', url:'https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/preview', created_at:new Date().toISOString()},
+      {id:1, judul:'Kisah Heroik Mayor Oking: Pejuang Tangguh Tanah Bogor', kategori:'Kisah Pahlawan', tipe:'gdrive', url:'https://drive.google.com/drive/folders/1ZM-l1OrTdYIyQI_zGtQvalJuNbRfTHX7', created_at:new Date().toISOString()},
+      {id:2, judul:'Siapa Tan Malaka? Bapak Republik yang Terlupakan', deskripsi:'Dalam Penyelenggaraan Pemilu', kategori:'KPU', tipe:'gdrive', url:'https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/preview', created_at:new Date().toISOString()},
       {id:3, judul:'Partisipasi Pemilih Pemula', deskripsi:'Untuk Indonesia yang Lebih Baik', kategori:'Partisipasi', tipe:'gdrive', url:'https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/preview', created_at:new Date().toISOString()}
     ],
     rules: [
