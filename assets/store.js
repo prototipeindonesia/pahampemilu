@@ -10,7 +10,7 @@ const APStore = (function(){
     deskripsi: 'Meneladani perjuangan pahlawan nasional asal Bogor.', 
     kategori: 'Sejarah Pahlawan', 
     tipe: 'gdrive', 
-    url: 'https://drive.google.com/file/d/ID_FILE_ANDA/preview', 
+    url: 'https://drive.google.com/file/d/1l_nqVkzULpRTIa3TZECHaZxQ7sX3r8d8/preview', 
     thumbnail: 'https://images.unsplash.com/photo-1575322101147-2566b9cc60b8?q=80&w=800&auto=format&fit=crop', // Gambar Ilustrasi Sejarah
     created_at: new Date().toISOString()
   },
@@ -20,7 +20,7 @@ const APStore = (function(){
     deskripsi: 'Mengenal lebih dekat pemikiran dan perjuangan Tan Malaka.', 
     kategori: 'Sejarah Pahlawan', 
     tipe: 'gdrive', 
-    url: 'https://drive.google.com/file/d/ID_FILE_ANDA/preview', 
+    url: 'https://drive.google.com/file/d/1CEzTWqOP9T1Q3Rs6nBcC_NwoNakoGuAG/preview', 
     thumbnail: 'https://images.unsplash.com/photo-1579532537598-459ecdaf39cc?q=80&w=800&auto=format&fit=crop', // Gambar Buku/Sejarah
     created_at: new Date().toISOString()
   },
@@ -30,7 +30,7 @@ const APStore = (function(){
     deskripsi: 'Kisah perjuangan perempuan muda dari Indonesia Timur.', 
     kategori: 'Sejarah Pahlawan', 
     tipe: 'gdrive', 
-    url: 'https://drive.google.com/file/d/ID_FILE_ANDA/preview', 
+    url: 'https://drive.google.com/file/d/1Vlzoxh9t6WQFiji3axoLXnDEgorDTX17/preview', 
     thumbnail: 'https://images.unsplash.com/photo-1618519764620-7403abdbdfe9?q=80&w=800&auto=format&fit=crop', // Gambar Perempuan Pejuang
     created_at: new Date().toISOString()
   },
@@ -40,7 +40,7 @@ const APStore = (function(){
     deskripsi: 'Pelajaran lingkungan dan kedaulatan sumber daya alam.', 
     kategori: 'Lingkungan', 
     tipe: 'gdrive', 
-    url: 'https://drive.google.com/file/d/ID_FILE_ANDA/preview', 
+    url: 'https://drive.google.com/file/d/1QmnfdopMK8__DAimBPLKkEAnrVmaoowf/preview', 
     thumbnail: 'https://images.unsplash.com/photo-1615959196629-621b8cd458f3?q=80&w=800&auto=format&fit=crop', // Gambar Alam/Tambang
     created_at: new Date().toISOString()
   },
@@ -50,7 +50,7 @@ const APStore = (function(){
     deskripsi: 'Edukasi pencegahan Korupsi, Kolusi, dan Nepotisme.', 
     kategori: 'Anti-Korupsi', 
     tipe: 'gdrive', 
-    url: 'https://drive.google.com/file/d/ID_FILE_ANDA/preview', 
+    url: 'https://drive.google.com/file/d/1Umpmicflmku41gCm-w6PBGy_jjpQy8oh/preview', 
     thumbnail: 'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?q=80&w=800&auto=format&fit=crop', // Gambar Hukum/Timbangan
     created_at: new Date().toISOString()
   }
