@@ -11,7 +11,7 @@ const APStore = (function(){
     kategori: 'Sejarah Pahlawan', 
     tipe: 'gdrive', 
     url: 'https://drive.google.com/file/d/1l_nqVkzULpRTIa3TZECHaZxQ7sX3r8d8/preview', 
-    thumbnail: 'https://images.unsplash.com/photo-1575322101147-2566b9cc60b8?q=80&w=800&auto=format&fit=crop', // Gambar Ilustrasi Sejarah
+    thumbnail: 'https://drive.google.com/file/d/1l7nkb23hv_bu9f8M3uNXR3Yf30D8R95X/view?usp=drivesdk', // Gambar Ilustrasi Sejarah
     created_at: new Date().toISOString()
   },
   {
