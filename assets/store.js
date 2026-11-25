@@ -2,11 +2,59 @@
 const APStore = (function(){
   const KEY = 'aksi_perubahan_data_v2'; // ubah versi agar data lama ter-reset
   const seed = {
+    // ===== UPDATE PADA BAGIAN videos =====
     videos: [
-      {id:1, judul:'Kisah Heroik Mayor Oking: Pejuang Tangguh Tanah Bogor', kategori:'Kisah Pahlawan', tipe:'gdrive', url:'https://drive.google.com/drive/folders/1ZM-l1OrTdYIyQI_zGtQvalJuNbRfTHX7', created_at:new Date().toISOString()},
-      {id:2, judul:'Siapa Tan Malaka? Bapak Republik yang Terlupakan', deskripsi:'Dalam Penyelenggaraan Pemilu', kategori:'KPU', tipe:'gdrive', url:'https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/preview', created_at:new Date().toISOString()},
-      {id:3, judul:'Partisipasi Pemilih Pemula', deskripsi:'Untuk Indonesia yang Lebih Baik', kategori:'Partisipasi', tipe:'gdrive', url:'https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/preview', created_at:new Date().toISOString()}
-    ],
+  {
+    id: 1, 
+    judul: 'Kisah Heroik Mayor Oking: Pejuang Tangguh Tanah Bogor', 
+    deskripsi: 'Meneladani perjuangan pahlawan nasional asal Bogor.', 
+    kategori: 'Sejarah Pahlawan', 
+    tipe: 'gdrive', 
+    url: 'https://drive.google.com/file/d/ID_FILE_ANDA/preview', 
+    thumbnail: 'https://images.unsplash.com/photo-1575322101147-2566b9cc60b8?q=80&w=800&auto=format&fit=crop', // Gambar Ilustrasi Sejarah
+    created_at: new Date().toISOString()
+  },
+  {
+    id: 2, 
+    judul: 'Siapa Tan Malaka? Bapak Republik yang Terlupakan', 
+    deskripsi: 'Mengenal lebih dekat pemikiran dan perjuangan Tan Malaka.', 
+    kategori: 'Sejarah Pahlawan', 
+    tipe: 'gdrive', 
+    url: 'https://drive.google.com/file/d/ID_FILE_ANDA/preview', 
+    thumbnail: 'https://images.unsplash.com/photo-1579532537598-459ecdaf39cc?q=80&w=800&auto=format&fit=crop', // Gambar Buku/Sejarah
+    created_at: new Date().toISOString()
+  },
+  {
+    id: 3, 
+    judul: 'Emmy Saelan: Srikandi Muda Pemberani dari Makassar', 
+    deskripsi: 'Kisah perjuangan perempuan muda dari Indonesia Timur.', 
+    kategori: 'Sejarah Pahlawan', 
+    tipe: 'gdrive', 
+    url: 'https://drive.google.com/file/d/ID_FILE_ANDA/preview', 
+    thumbnail: 'https://images.unsplash.com/photo-1618519764620-7403abdbdfe9?q=80&w=800&auto=format&fit=crop', // Gambar Perempuan Pejuang
+    created_at: new Date().toISOString()
+  },
+  {
+    id: 4, 
+    judul: 'Dampak Tambang bagi Alam & Satwa Langka Indonesia', 
+    deskripsi: 'Pelajaran lingkungan dan kedaulatan sumber daya alam.', 
+    kategori: 'Lingkungan', 
+    tipe: 'gdrive', 
+    url: 'https://drive.google.com/file/d/ID_FILE_ANDA/preview', 
+    thumbnail: 'https://images.unsplash.com/photo-1615959196629-621b8cd458f3?q=80&w=800&auto=format&fit=crop', // Gambar Alam/Tambang
+    created_at: new Date().toISOString()
+  },
+  {
+    id: 5, 
+    judul: 'Apa Itu KKN? Kenali Bahayanya Sejak Dini!', 
+    deskripsi: 'Edukasi pencegahan Korupsi, Kolusi, dan Nepotisme.', 
+    kategori: 'Anti-Korupsi', 
+    tipe: 'gdrive', 
+    url: 'https://drive.google.com/file/d/ID_FILE_ANDA/preview', 
+    thumbnail: 'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?q=80&w=800&auto=format&fit=crop', // Gambar Hukum/Timbangan
+    created_at: new Date().toISOString()
+  }
+],
     rules: [
       {id:1, judul:'PKPU No. 15 Tahun 2023', deskripsi:'Tentang Kampanye Pemilu', kategori:'Peraturan KPU', file_path:'https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/view', created_at:new Date().toISOString()},
       {id:2, judul:'UU No. 7 Tahun 2017', deskripsi:'Tentang Pemilihan Umum', kategori:'Undang-Undang', file_path:'https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/view', created_at:new Date().toISOString()},
