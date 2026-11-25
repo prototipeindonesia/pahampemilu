@@ -26,16 +26,18 @@
       </div>
     </a>
 
-    <!-- Menu Navigasi -->
-    <nav class="nav-links">
-      <a href="#" class="active" onclick="scrollToTop(event)"><span class="icon">🏠</span> Beranda</a>
-      <a href="#" onclick="event.preventDefault(); openQuiz()"><span class="icon">📝</span> Quiz & Evaluasi</a>
-      <a href="#" onclick="event.preventDefault(); openTentang()"><span class="icon">ℹ️</span> Tentang</a>
-    </nav>
+    <!-- Menu Navigasi & Pencarian digabung di kanan -->
+    <div class="nav-right">
+      <nav class="nav-links">
+        <a href="#" class="active" onclick="scrollToTop(event)"><span class="icon">🏠</span> Beranda</a>
+        <a href="#" onclick="event.preventDefault(); openQuiz()"><span class="icon">📝</span> Quiz & Evaluasi</a>
+        <a href="#" onclick="event.preventDefault(); openTentang()"><span class="icon">ℹ️</span> Tentang</a>
+      </nav>
 
-    <div class="nav-search">
-      <input type="text" placeholder="Cari materi..." id="globalSearch" onkeyup="globalSearch(this.value)">
-      <span class="search-icon">🔍</span>
+      <div class="nav-search">
+        <input type="text" placeholder="Cari materi..." id="globalSearch" onkeyup="globalSearch(this.value)">
+        <span class="search-icon">🔍</span>
+      </div>
     </div>
   </div>
 </header>
@@ -133,10 +135,10 @@
 
 </div>
 
-<!-- FOOTER -->
+<!-- FOOTER (Tanpa Ikon Sosmed) -->
 <footer class="site-footer">
   <div class="footer-wave"></div>
-  <div class="container footer-content">
+  <div class="container footer-content" style="justify-content: space-between;">
     <div class="footer-brand">
       <div class="brand-logo" style="border-color:#fff">
         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -149,14 +151,8 @@
         <div class="brand-title" style="color:#fff">Paham<br>Pemilu</div>
       </div>
     </div>
-    <div class="footer-tagline">
+    <div class="footer-tagline" style="text-align: right;">
       <em>Belajar Hari Ini,<br>Untuk Demokrasi Esok</em>
-    </div>
-    <div class="footer-socials">
-      <a href="#">▶</a>
-      <a href="#">📷</a>
-      <a href="#">🌐</a>
-      <a href="#">📖</a>
     </div>
   </div>
 </footer>
@@ -208,35 +204,51 @@
 
 <script src="assets/store.js"></script>
 <script>
-// --- RENDER DATA HOMEPAGE ---
+let searchQuery = ""; // Variabel penampung kata kunci pencarian
+
+// --- RENDER DATA HOMEPAGE & PENCARIAN ---
 function render(){
   const videos = APStore.getList('videos');
   const rules  = APStore.getList('rules');
   const books  = APStore.getList('books');
 
-  // Render Video (Max 3)
+  // Filter Data Berdasarkan Pencarian
+  const filteredVideos = videos.filter(v => (v.judul + ' ' + (v.kategori||'') + ' ' + (v.deskripsi||'')).toLowerCase().includes(searchQuery));
+  const filteredRules  = rules.filter(r => (r.judul + ' ' + (r.kategori||'') + ' ' + (r.deskripsi||'')).toLowerCase().includes(searchQuery));
+  const filteredBooks  = books.filter(b => (b.judul + ' ' + (b.penulis||'') + ' ' + (b.penerbit||'')).toLowerCase().includes(searchQuery));
+
+  // 1. Render Video
   const vg = document.getElementById('videoGrid');
-  if (!videos.length){
-    vg.innerHTML = '<div class="empty">Belum ada video.</div>';
+  const vLimit = searchQuery ? filteredVideos.length : 3; // Tampilkan semua jika sedang mencari
+  if (!filteredVideos.length){
+    vg.innerHTML = '<div class="empty">Video tidak ditemukan.</div>';
   } else {
-    vg.innerHTML = videos.slice(0, 3).map(v => generateVideoCard(v)).join('');
+    vg.innerHTML = filteredVideos.slice(0, vLimit).map(v => generateVideoCard(v)).join('');
   }
 
-  // Render Aturan (Max 3)
+  // 2. Render Aturan
   const rg = document.getElementById('rulesGrid');
-  if (!rules.length){
-    rg.innerHTML = '<div class="empty">Belum ada aturan.</div>';
+  const rLimit = searchQuery ? filteredRules.length : 3;
+  if (!filteredRules.length){
+    rg.innerHTML = '<div class="empty">Aturan tidak ditemukan.</div>';
   } else {
-    rg.innerHTML = rules.slice(0, 3).map(r => generateRuleCard(r)).join('');
+    rg.innerHTML = filteredRules.slice(0, rLimit).map(r => generateRuleCard(r)).join('');
   }
 
-  // Render Buku (Max 5)
+  // 3. Render Buku
   const bg = document.getElementById('booksGrid');
-  if (!books.length){
-    bg.innerHTML = '<div class="empty">Belum ada buku.</div>';
+  const bLimit = searchQuery ? filteredBooks.length : 5;
+  if (!filteredBooks.length){
+    bg.innerHTML = '<div class="empty">Buku tidak ditemukan.</div>';
   } else {
-    bg.innerHTML = books.slice(0, 5).map((b, i) => generateBookCard(b, i)).join('');
+    bg.innerHTML = filteredBooks.slice(0, bLimit).map((b, i) => generateBookCard(b, i)).join('');
   }
+}
+
+// --- FUNGSI PENCARIAN ---
+function globalSearch(val) {
+  searchQuery = val.toLowerCase();
+  render();
 }
 
 // --- TEMPLATE FUNCTIONS ---
@@ -318,7 +330,6 @@ function openVideo(data){
   document.getElementById('videoModal').classList.add('open');
 }
 
-// TAMBAHAN: Fungsi closeVideo() yang sebelumnya hilang
 function closeVideo(){
   document.getElementById('videoContent').innerHTML = '';
   document.getElementById('videoModal').classList.remove('open');
