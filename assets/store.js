@@ -15,7 +15,7 @@ const APStore = (function(){
         deskripsi: 'Meneladani perjuangan pahlawan nasional asal Bogor.', 
         kategori: 'Sejarah Pahlawan', 
         tipe: 'youtube', 
-        url: 'https://youtu.be/embed/-ibtTbz1br4?si=6XTF5T10eR2UaWD9', 
+        url: 'https://youtu.be/-ibtTbz1br4?si=6XTF5T10eR2UaWD9', 
         thumbnail: 'assets/gambar1.png',
         created_at: new Date().toISOString()
       },
