@@ -92,37 +92,27 @@
     background-repeat: no-repeat !important;
     position: relative;
     overflow: hidden;
+    align-items: flex-end;
+    padding-bottom: 18px;
   }
   .b-cover.has-cover-img::after {
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(10, 37, 64, 0.85) 0%, rgba(10, 37, 64, 0.15) 55%, transparent 100%);
+    background: linear-gradient(to top, rgba(10, 37, 64, 0.88) 0%, rgba(10, 37, 64, 0.2) 55%, transparent 100%);
+    z-index: 1;
   }
   .b-cover.has-cover-img h3 {
     position: relative;
     z-index: 2;
     color: #ffffff !important;
-    text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+    text-shadow: 0 2px 6px rgba(0,0,0,0.65);
   }
 
-  /* Perbaikan rasio video di dalam modal agar tidak stuck loading/gepeng */
+  /* Kontainer Modal Video yang bersih tanpa bentrok aspect-ratio */
   #videoContent {
-    position: relative;
     width: 100%;
-    aspect-ratio: 16 / 9;
     background: #000;
-    border-radius: 12px;
-    overflow: hidden;
-  }
-  #videoContent iframe,
-  #videoContent video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
   }
 </style>
 </head>
@@ -269,7 +259,6 @@
         src="https://drive.google.com/file/d/1xdvObH5hwWqjvr8Z_KCdpr6EtPa9gy2i/preview" 
         title="Video Penjelasan Website GIBRAN AI" 
         allow="autoplay; fullscreen" 
-        referrerpolicy="strict-origin-when-cross-origin"
         allowfullscreen>
       </iframe>
     </div>
@@ -298,7 +287,6 @@
             src="https://drive.google.com/file/d/1NwUoYllyKm5gGY2lbapzirNnSxRrXSnM/preview" 
             title="Testimoni Sekda Kota Bogor" 
             allow="autoplay; fullscreen" 
-            referrerpolicy="strict-origin-when-cross-origin"
             allowfullscreen>
           </iframe>
         </div>
@@ -315,7 +303,6 @@
             src="https://drive.google.com/file/d/1EYxP1yVYbHiDohidRLQ01X7Z901V1Xjl/preview" 
             title="Testimoni Setditjen Bangda Kemendagri" 
             allow="autoplay; fullscreen" 
-            referrerpolicy="strict-origin-when-cross-origin"
             allowfullscreen>
           </iframe>
         </div>
@@ -332,7 +319,6 @@
             src="https://drive.google.com/file/d/1G9S68jG7P_QHg_0TdWe29Ye_5Ads9OrG/preview" 
             title="Testimoni Kasek Bawaslu Jabar" 
             allow="autoplay; fullscreen" 
-            referrerpolicy="strict-origin-when-cross-origin"
             allowfullscreen>
           </iframe>
         </div>
@@ -344,7 +330,6 @@
     </div>
   </section>
 
-    
 </div>
 
 <!-- FOOTER (Tanpa Ikon Sosmed) -->
@@ -418,10 +403,10 @@
 <script>
 // =========================================================================
 // EDIT LINK GAMBAR SAMPUL BUKU DI SINI (URUTAN SESUAI DAFTAR BUKU)
-// Anda juga bisa mengisi properti "cover" langsung di dalam assets/store.js
+// Anda juga bisa mengisi properti "cover_path" langsung di dalam assets/store.js
 // =========================================================================
 const customBookCovers = [
-  "", // Link gambar sampul Buku ke-1 (contoh: "https://link-gambar.com/sampul1.jpg")
+  "", // Link gambar sampul Buku ke-1 (contoh: "assets/sampul1.jpg" atau "https://...")
   "", // Link gambar sampul Buku ke-2
   "", // Link gambar sampul Buku ke-3
   "", // Link gambar sampul Buku ke-4
@@ -528,10 +513,8 @@ function generateVideoCard(v) {
     thumb = 'https://images.unsplash.com/photo-1540910419892-4a36d2c3266c?q=80&w=600&auto=format&fit=crop'; 
   }
 
-  const dataVideo = esc(JSON.stringify({tipe: v.tipe || '', src: rawUrl}));
-  
   return `
-    <div class="v-card" onclick='openVideo(${dataVideo})'>
+    <div class="v-card" data-tipe="${esc(v.tipe || '')}" data-src="${esc(rawUrl)}" onclick="openVideoFromCard(this)">
       <div class="v-thumb" style="background-image:url('${esc(thumb)}')">
         <div class="v-play">▶</div>
       </div>
@@ -543,6 +526,13 @@ function generateVideoCard(v) {
         </div>
       </div>
     </div>`;
+}
+
+function openVideoFromCard(el) {
+  openVideo({
+    tipe: el.getAttribute('data-tipe') || '',
+    src: el.getAttribute('data-src') || ''
+  });
 }
 
 function generateRuleCard(r) {
@@ -562,8 +552,8 @@ function generateBookCard(b, index) {
   const coverClasses = ['c-navy', 'c-white', 'c-red', 'c-blue', 'c-yellow'];
   const cls = coverClasses[index % coverClasses.length];
   
-  // Cek link gambar sampul dari objek buku (store.js) atau dari array customBookCovers
-  const coverImg = (b.cover || b.gambar || b.thumbnail || customBookCovers[index] || '').trim();
+  // Cek link gambar sampul dari store.js (cover_path) atau dari array customBookCovers
+  const coverImg = (b.cover_path || b.cover || b.gambar || b.thumbnail || customBookCovers[index] || '').trim();
   const coverStyle = coverImg ? `style="background-image:url('${esc(coverImg)}')"` : '';
   const extraClass = coverImg ? 'has-cover-img' : cls;
 
@@ -575,22 +565,26 @@ function generateBookCard(b, index) {
     </div>`;
 }
 
-// --- LOGIKA VIDEO MODAL (DIPERBAIKI AGAR TIDAK STUCK LOADING) ---
+// --- LOGIKA VIDEO MODAL ---
 function openVideo(data){
   const content = document.getElementById('videoContent');
   const rawSrc = String(data && data.src ? data.src : '').trim();
   
   if (!rawSrc){
-    content.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#fff;padding:20px;text-align:center;">Link video belum diisi.</div>';
-  } else if (getYoutubeId(rawSrc) || data.tipe === 'youtube'){
+    content.innerHTML = '<div style="padding:60px;text-align:center;color:#fff">Video belum diset.</div>';
+  } else if (data.tipe === 'youtube' || getYoutubeId(rawSrc)){
     const embedSrc = toEmbedYoutube(rawSrc);
     const separator = embedSrc.includes('?') ? '&' : '?';
-    content.innerHTML = `<iframe src="${esc(embedSrc)}${separator}autoplay=1&rel=0" title="Video Pembelajaran" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin"></iframe>`;
-  } else if (rawSrc.includes('drive.google.com') || data.tipe === 'gdrive') {
+    content.innerHTML = `<iframe src="${esc(embedSrc)}${separator}autoplay=1" allowfullscreen allow="autoplay; encrypted-media"></iframe>`;
+  } else if (data.tipe === 'gdrive' || rawSrc.includes('drive.google.com')) {
     const embedUrl = toEmbedGdrive(rawSrc);
-    content.innerHTML = `<iframe src="${esc(embedUrl)}" title="Video Google Drive" allowfullscreen allow="autoplay; fullscreen" referrerpolicy="strict-origin-when-cross-origin"></iframe>`;
+    content.innerHTML = `
+      <div style="position:relative; width:100%; aspect-ratio:16/9; background:#000;">
+        <iframe src="${esc(embedUrl)}" style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;" allowfullscreen allow="autoplay"></iframe>
+      </div>
+    `;
   } else {
-    content.innerHTML = `<video src="${esc(rawSrc)}" controls autoplay playsinline></video>`;
+    content.innerHTML = `<video src="${esc(rawSrc)}" controls autoplay></video>`;
   }
   
   document.getElementById('videoModal').classList.add('open');
