@@ -369,21 +369,15 @@ body {
   box-shadow: 0 25px 50px rgba(0,0,0,0.5);
 }
 
-/* WADAH VIDEO DI MODAL (Rasio 16:9 stabil di semua browser) */
+/* WADAH VIDEO DI MODAL (Selaras dengan index.html terbaru) */
 #videoContent {
-  position: relative;
   width: 100%;
-  padding-bottom: 56.25%;
-  height: 0;
   background: #000;
-  overflow: hidden;
 }
-#videoContent iframe,
-#videoContent video { 
-  position: absolute;
-  top: 0; left: 0;
+.modal-box iframe,
+.modal-box video { 
   width: 100%; 
-  height: 100%; 
+  aspect-ratio: 16/9; 
   display: block; 
   border: none; 
 }
