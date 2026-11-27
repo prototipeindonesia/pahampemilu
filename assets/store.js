@@ -68,7 +68,7 @@ const APStore = (function(){
         judul: 'PKPU No. 15 Tahun 2023', 
         deskripsi: 'Tentang Kampanye Pemilu', 
         kategori: 'Peraturan KPU', 
-        file_path: 'https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/view', 
+        file_path: 'https://drive.google.com/file/d/1oLnfLmS2aR_sMWR4h5BY6MZMSHc_53PO/view?usp=drivesdk', 
         created_at: new Date().toISOString()
       },
       {
@@ -76,7 +76,7 @@ const APStore = (function(){
         judul: 'UU No. 7 Tahun 2017', 
         deskripsi: 'Tentang Pemilihan Umum', 
         kategori: 'Undang-Undang', 
-        file_path: 'https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/view', 
+        file_path: 'https://drive.google.com/file/d/1qwnkYWjq8nIF10dOgkwTZoWv1qnXUFPH/view?usp=drivesdk', 
         created_at: new Date().toISOString()
       },
       {
@@ -84,7 +84,7 @@ const APStore = (function(){
         judul: 'PP No. 1 Tahun 2022', 
         deskripsi: 'Tentang Tahapan Penyelenggaraan Pemilu', 
         kategori: 'Peraturan Pemerintah', 
-        file_path: 'https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/view', 
+        file_path: 'https://drive.google.com/file/d/1yQhuoZ8sPM8zWKmEL3B577SWZM1Gql7A/view?usp=drivesdk', 
         created_at: new Date().toISOString()
       }
     ],
