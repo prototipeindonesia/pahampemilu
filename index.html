@@ -40,6 +40,90 @@
     color: #52606D;
     font-size: 0.95rem;
   }
+
+  /* Styling Section Video Testimoni */
+  .testimoni-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  .testimoni-card {
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(10, 37, 64, 0.06);
+  }
+  .testimoni-video-box {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #0A2540;
+  }
+  .testimoni-video-box iframe,
+  .testimoni-video-box video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    object-fit: cover;
+  }
+  .testimoni-info {
+    padding: 14px 16px;
+  }
+  .testimoni-info h4 {
+    margin: 0 0 4px;
+    color: #0A2540;
+    font-size: 1rem;
+    font-weight: 800;
+  }
+  .testimoni-info p {
+    margin: 0;
+    color: #52606D;
+    font-size: 0.85rem;
+  }
+
+  /* Styling Sampul Gambar Referensi Buku */
+  .b-cover.has-cover-img {
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    position: relative;
+    overflow: hidden;
+  }
+  .b-cover.has-cover-img::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(10, 37, 64, 0.85) 0%, rgba(10, 37, 64, 0.15) 55%, transparent 100%);
+  }
+  .b-cover.has-cover-img h3 {
+    position: relative;
+    z-index: 2;
+    color: #ffffff !important;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+  }
+
+  /* Perbaikan rasio video di dalam modal agar tidak stuck loading/gepeng */
+  #videoContent {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #000;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  #videoContent iframe,
+  #videoContent video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
 </style>
 </head>
 <body>
@@ -181,17 +265,66 @@
     </div>
 
     <div class="guide-video-wrapper">
-      <!-- Ganti GANTI_DENGAN_ID_FILE_GDRIVE dengan ID file video dari link Google Drive Anda -->
       <iframe 
         src="https://drive.google.com/file/d/1xdvObH5hwWqjvr8Z_KCdpr6EtPa9gy2i/preview" 
         title="Video Penjelasan Website GIBRAN AI" 
         allow="autoplay; fullscreen" 
+        referrerpolicy="strict-origin-when-cross-origin"
         allowfullscreen>
       </iframe>
     </div>
     <p class="guide-caption">
       Tonton video di atas untuk memahami alur belajar, pencarian materi, hingga pengerjaan quiz evaluasi.
     </p>
+  </section>
+
+  <!-- SECTION 5: VIDEO TESTIMONI -->
+  <section class="content-box" id="testimoni">
+    <div class="box-header">
+      <div class="header-left">
+        <div class="header-icon icon-orange">💬</div>
+        <div>
+          <h2>Video Testimoni</h2>
+          <p>Pengalaman guru dan siswa menggunakan platform GIBRAN <span class="text-red">AI</span></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimoni-grid">
+      <!-- Testimoni 1: Ganti ID_VIDEO_TESTIMONI_1 dengan ID file Google Drive atau link embed YouTube -->
+      <div class="testimoni-card">
+        <div class="testimoni-video-box">
+          <iframe 
+            src="https://drive.google.com/file/d/ID_VIDEO_TESTIMONI_1/preview" 
+            title="Testimoni Guru" 
+            allow="autoplay; fullscreen" 
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen>
+          </iframe>
+        </div>
+        <div class="testimoni-info">
+          <h4>Testimoni Guru</h4>
+          <p>Pemanfaatan media edukasi kepemiluan dalam pembelajaran di kelas</p>
+        </div>
+      </div>
+
+      <!-- Testimoni 2: Ganti ID_VIDEO_TESTIMONI_2 dengan ID file Google Drive atau link embed YouTube -->
+      <div class="testimoni-card">
+        <div class="testimoni-video-box">
+          <iframe 
+            src="https://drive.google.com/file/d/ID_VIDEO_TESTIMONI_2/preview" 
+            title="Testimoni Siswa" 
+            allow="autoplay; fullscreen" 
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen>
+          </iframe>
+        </div>
+        <div class="testimoni-info">
+          <h4>Testimoni Siswa</h4>
+          <p>Belajar demokrasi dan simulasi Pemilu jadi lebih mudah dipahami</p>
+        </div>
+      </div>
+    </div>
   </section>
 
 </div>
@@ -265,6 +398,18 @@
 
 <script src="assets/store.js"></script>
 <script>
+// =========================================================================
+// EDIT LINK GAMBAR SAMPUL BUKU DI SINI (URUTAN SESUAI DAFTAR BUKU)
+// Anda juga bisa mengisi properti "cover" langsung di dalam assets/store.js
+// =========================================================================
+const customBookCovers = [
+  "", // Link gambar sampul Buku ke-1 (contoh: "https://link-gambar.com/sampul1.jpg")
+  "", // Link gambar sampul Buku ke-2
+  "", // Link gambar sampul Buku ke-3
+  "", // Link gambar sampul Buku ke-4
+  ""  // Link gambar sampul Buku ke-5
+];
+
 // Fallback jika helper di store.js belum tersedia
 if (typeof esc !== 'function') {
   window.esc = function(str) {
@@ -277,20 +422,24 @@ if (typeof esc !== 'function') {
   };
 }
 
-if (typeof ytThumb !== 'function') {
-  window.ytThumb = function(url) {
-    const match = String(url || '').match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([^&?\s]+)/);
-    return match ? `https://img.youtube.com/vi/${match[1]}/hqdefault.jpg` : '';
-  };
+function getYoutubeId(url) {
+  const str = String(url || '').trim();
+  const match = str.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|v\/|shorts\/))([a-zA-Z0-9_-]{11})/);
+  return match ? match[1] : '';
 }
 
+window.ytThumb = function(url) {
+  const id = getYoutubeId(url);
+  return id ? `https://img.youtube.com/vi/${id}/hqdefault.jpg` : '';
+};
+
 function toEmbedYoutube(url) {
-  const match = String(url || '').match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([^&?\s]+)/);
-  return match ? `https://www.youtube.com/embed/${match[1]}` : url;
+  const id = getYoutubeId(url);
+  return id ? `https://www.youtube.com/embed/${id}` : url;
 }
 
 function toEmbedGdrive(url) {
-  const str = String(url || '');
+  const str = String(url || '').trim();
   const match = str.match(/\/file\/d\/([^\/?#]+)/) || str.match(/[?&]id=([^&]+)/);
   if (match) {
     return `https://drive.google.com/file/d/${match[1]}/preview`;
@@ -349,17 +498,19 @@ function globalSearch(val) {
 
 // --- TEMPLATE FUNCTIONS ---
 function generateVideoCard(v) {
+  const rawUrl = String(v.url || v.src || '').trim();
+  const ytId = getYoutubeId(rawUrl);
   let thumb = '';
   
-  if (v.tipe === 'youtube') {
-    thumb = ytThumb(v.url);
+  if (ytId) {
+    thumb = `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`;
   } else if (v.thumbnail) {
     thumb = v.thumbnail; 
   } else {
     thumb = 'https://images.unsplash.com/photo-1540910419892-4a36d2c3266c?q=80&w=600&auto=format&fit=crop'; 
   }
 
-  const dataVideo = esc(JSON.stringify({tipe: v.tipe, src: v.url}));
+  const dataVideo = esc(JSON.stringify({tipe: v.tipe || '', src: rawUrl}));
   
   return `
     <div class="v-card" onclick='openVideo(${dataVideo})'>
@@ -384,7 +535,7 @@ function generateRuleCard(r) {
         <span class="r-badge">${esc(r.kategori)}</span>
         <h3>${esc(r.judul)}</h3>
         <p>${esc(r.deskripsi||'')}</p>
-        <a href="${esc(r.file_path||'#')}" target="_blank" rel="noopener noreferrer" class="r-btn">Buka Drive ⬇</a>
+        <a href="${esc(r.file_path||'#')}" target="_blank" rel="noopener noreferrer" class="r-btn">Lihat Regulasi ➔</a>
       </div>
     </div>`;
 }
@@ -392,33 +543,36 @@ function generateRuleCard(r) {
 function generateBookCard(b, index) {
   const coverClasses = ['c-navy', 'c-white', 'c-red', 'c-blue', 'c-yellow'];
   const cls = coverClasses[index % coverClasses.length];
+  
+  // Cek link gambar sampul dari objek buku (store.js) atau dari array customBookCovers
+  const coverImg = (b.cover || b.gambar || b.thumbnail || customBookCovers[index] || '').trim();
+  const coverStyle = coverImg ? `style="background-image:url('${esc(coverImg)}')"` : '';
+  const extraClass = coverImg ? 'has-cover-img' : cls;
+
   return `
     <div class="b-card" onclick="window.open('${esc(b.file_path||'#')}', '_blank', 'noopener,noreferrer')" style="cursor:pointer">
-      <div class="b-cover ${cls}">
+      <div class="b-cover ${extraClass}" ${coverStyle}>
         <h3>${esc(b.judul)}</h3>
       </div>
     </div>`;
 }
 
-// --- LOGIKA VIDEO MODAL ---
+// --- LOGIKA VIDEO MODAL (DIPERBAIKI AGAR TIDAK STUCK LOADING) ---
 function openVideo(data){
   const content = document.getElementById('videoContent');
+  const rawSrc = String(data && data.src ? data.src : '').trim();
   
-  if (!data || !data.src){
-    content.innerHTML = '<div style="padding:60px;text-align:center;color:#fff">Video belum diset.</div>';
-  } else if (data.tipe === 'youtube'){
-    const embedSrc = toEmbedYoutube(data.src);
+  if (!rawSrc){
+    content.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#fff;padding:20px;text-align:center;">Link video belum diisi.</div>';
+  } else if (getYoutubeId(rawSrc) || data.tipe === 'youtube'){
+    const embedSrc = toEmbedYoutube(rawSrc);
     const separator = embedSrc.includes('?') ? '&' : '?';
-    content.innerHTML = `<iframe src="${esc(embedSrc)}${separator}autoplay=1" allowfullscreen allow="autoplay; encrypted-media"></iframe>`;
-  } else if (data.tipe === 'gdrive' || String(data.src).includes('drive.google.com')) {
-    const embedUrl = toEmbedGdrive(data.src);
-    content.innerHTML = `
-      <div style="position:relative; width:100%; aspect-ratio:16/9; background:#000;">
-        <iframe src="${esc(embedUrl)}" style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;" allowfullscreen allow="autoplay"></iframe>
-      </div>
-    `;
+    content.innerHTML = `<iframe src="${esc(embedSrc)}${separator}autoplay=1&rel=0" title="Video Pembelajaran" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin"></iframe>`;
+  } else if (rawSrc.includes('drive.google.com') || data.tipe === 'gdrive') {
+    const embedUrl = toEmbedGdrive(rawSrc);
+    content.innerHTML = `<iframe src="${esc(embedUrl)}" title="Video Google Drive" allowfullscreen allow="autoplay; fullscreen" referrerpolicy="strict-origin-when-cross-origin"></iframe>`;
   } else {
-    content.innerHTML = `<video src="${esc(data.src)}" controls autoplay></video>`;
+    content.innerHTML = `<video src="${esc(rawSrc)}" controls autoplay playsinline></video>`;
   }
   
   document.getElementById('videoModal').classList.add('open');
