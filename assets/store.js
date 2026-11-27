@@ -1,13 +1,13 @@
 // ===== DEMO DATA STORE (localStorage) =====
 const APStore = (function(){
-  const KEY = 'aksi_perubahan_data_v5';
+  const KEY = 'aksi_perubahan_data_v6';
 
-  ['aksi_perubahan_data', 'aksi_perubahan_data_v1', 'aksi_perubahan_data_v2', 'aksi_perubahan_data_v3', 'aksi_perubahan_data_v4'].forEach(oldKey => {
+  ['aksi_perubahan_data', 'aksi_perubahan_data_v1', 'aksi_perubahan_data_v2', 'aksi_perubahan_data_v3', 'aksi_perubahan_data_v4', 'aksi_perubahan_data_v5'].forEach(oldKey => {
     try { localStorage.removeItem(oldKey); } catch(e) {}
   });
 
   const seed = {
-    // ===== DATA VIDEO PEMBELAJARAN (GANTI LINK YOUTUBE DI BAWAH INI) =====
+    // ===== DATA VIDEO PEMBELAJARAN =====
     videos: [
       {
         id: 1, 
@@ -99,7 +99,7 @@ const APStore = (function(){
         tahun: '1972', 
         deskripsi: 'Buku panduan demokrasi.', 
         file_path: 'https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/view', 
-        cover_path: '',
+        cover_path: 'assets/sampul1.png',
         created_at: new Date().toISOString()
       },
       {
@@ -110,7 +110,7 @@ const APStore = (function(){
         tahun: '2022', 
         deskripsi: 'Modul pendidikan pemilih.', 
         file_path: 'https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/view', 
-        cover_path: '',
+        cover_path: 'assets/sampul2.png',
         created_at: new Date().toISOString()
       },
       {
@@ -121,7 +121,7 @@ const APStore = (function(){
         tahun: '2021', 
         deskripsi: 'Buku saku partisipasi.', 
         file_path: 'https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/view', 
-        cover_path: '',
+        cover_path: 'assets/sampul3.png',
         created_at: new Date().toISOString()
       },
       {
@@ -132,7 +132,7 @@ const APStore = (function(){
         tahun: '2020', 
         deskripsi: 'Buku referensi tata kelola.', 
         file_path: 'https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/view', 
-        cover_path: '',
+        cover_path: 'assets/sampul4.png',
         created_at: new Date().toISOString()
       },
       {
@@ -143,7 +143,7 @@ const APStore = (function(){
         tahun: '2023', 
         deskripsi: 'Buku tentang peran pemuda.', 
         file_path: 'https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/view', 
-        cover_path: '',
+        cover_path: 'assets/sampul5.png',
         created_at: new Date().toISOString()
       }
     ]
