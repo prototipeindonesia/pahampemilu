@@ -1,24 +1,21 @@
 // ===== DEMO DATA STORE (localStorage) =====
 const APStore = (function(){
-  // Ubah angka versi (misal v4 -> v5) setiap kali Anda mengedit data seed di bawah ini
-  // agar browser pengunjung otomatis memperbarui data lama yang tersimpan di localStorage
-  const KEY = 'aksi_perubahan_data_v4'; 
+  const KEY = 'aksi_perubahan_data_v5';
 
-  // Bersihkan cache versi lama agar tidak membebani memori browser
-  ['aksi_perubahan_data', 'aksi_perubahan_data_v1', 'aksi_perubahan_data_v2', 'aksi_perubahan_data_v3'].forEach(oldKey => {
+  ['aksi_perubahan_data', 'aksi_perubahan_data_v1', 'aksi_perubahan_data_v2', 'aksi_perubahan_data_v3', 'aksi_perubahan_data_v4'].forEach(oldKey => {
     try { localStorage.removeItem(oldKey); } catch(e) {}
   });
 
   const seed = {
-    // ===== DATA VIDEO PEMBELAJARAN =====
+    // ===== DATA VIDEO PEMBELAJARAN (GANTI LINK YOUTUBE DI BAWAH INI) =====
     videos: [
       {
         id: 1, 
         judul: 'Kisah Heroik Mayor Oking: Pejuang Tangguh Tanah Bogor', 
         deskripsi: 'Meneladani perjuangan pahlawan nasional asal Bogor.', 
         kategori: 'Sejarah Pahlawan', 
-        tipe: 'gdrive', 
-        url: 'https://drive.google.com/file/d/1l_nqVkzULpRTIa3TZECHaZxQ7sX3r8d8/preview', 
+        tipe: 'youtube', 
+        url: 'https://youtu.be/-ibtTbz1br4?si=6XTF5T10eR2UaWD9', 
         thumbnail: 'assets/gambar1.png',
         created_at: new Date().toISOString()
       },
@@ -27,8 +24,8 @@ const APStore = (function(){
         judul: 'Siapa Tan Malaka? Bapak Republik yang Terlupakan', 
         deskripsi: 'Mengenal lebih dekat pemikiran dan perjuangan Tan Malaka.', 
         kategori: 'Sejarah Pahlawan', 
-        tipe: 'gdrive', 
-        url: 'https://drive.google.com/file/d/1CEzTWqOP9T1Q3Rs6nBcC_NwoNakoGuAG/preview', 
+        tipe: 'youtube', 
+        url: 'https://youtu.be/LGgjcT7YzWU?si=JFZdI7dau9OEfPpT', 
         thumbnail: 'assets/gambar2.png',
         created_at: new Date().toISOString()
       },
@@ -37,8 +34,8 @@ const APStore = (function(){
         judul: 'Emmy Saelan: Srikandi Muda Pemberani dari Makassar', 
         deskripsi: 'Kisah perjuangan perempuan muda dari Indonesia Timur.', 
         kategori: 'Sejarah Pahlawan', 
-        tipe: 'gdrive', 
-        url: 'https://drive.google.com/file/d/1Vlzoxh9t6WQFiji3axoLXnDEgorDTX17/preview', 
+        tipe: 'youtube', 
+        url: 'https://youtu.be/lHs8fk1MdxM?si=XkuONDHORFvY3XR7', 
         thumbnail: 'assets/gambar3.png',
         created_at: new Date().toISOString()
       },
@@ -47,8 +44,8 @@ const APStore = (function(){
         judul: 'Dampak Tambang bagi Alam & Satwa Langka Indonesia', 
         deskripsi: 'Pelajaran lingkungan dan kedaulatan sumber daya alam.', 
         kategori: 'Lingkungan', 
-        tipe: 'gdrive', 
-        url: 'https://drive.google.com/file/d/1QmnfdopMK8__DAimBPLKkEAnrVmaoowf/preview', 
+        tipe: 'youtube', 
+        url: 'https://youtu.be/lcqO1UiRmkw?si=j091E4QjRfftySW6', 
         thumbnail: 'assets/gambar4.png',
         created_at: new Date().toISOString()
       },
@@ -57,8 +54,8 @@ const APStore = (function(){
         judul: 'Apa Itu KKN? Kenali Bahayanya Sejak Dini!', 
         deskripsi: 'Edukasi pencegahan Korupsi, Kolusi, dan Nepotisme.', 
         kategori: 'Anti-Korupsi', 
-        tipe: 'gdrive', 
-        url: 'https://drive.google.com/file/d/1Umpmicflmku41gCm-w6PBGy_jjpQy8oh/preview', 
+        tipe: 'youtube', 
+        url: 'https://youtu.be/gmnvCOYArbw?si=VGRFaLuAMo2IKKFZ', 
         thumbnail: 'assets/gambar5.png',
         created_at: new Date().toISOString()
       }
@@ -93,7 +90,6 @@ const APStore = (function(){
     ],
 
     // ===== DATA REFERENSI BUKU =====
-    // Isi kolom cover_path dengan link gambar sampul (contoh: 'assets/cover1.jpg' atau 'https://...')
     books: [
       {
         id: 1, 
@@ -103,7 +99,7 @@ const APStore = (function(){
         tahun: '2023', 
         deskripsi: 'Buku panduan demokrasi.', 
         file_path: 'https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/view', 
-        cover_path: '', // <-- Edit link gambar sampul Buku 1 di sini
+        cover_path: '',
         created_at: new Date().toISOString()
       },
       {
@@ -114,7 +110,7 @@ const APStore = (function(){
         tahun: '2022', 
         deskripsi: 'Modul pendidikan pemilih.', 
         file_path: 'https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/view', 
-        cover_path: '', // <-- Edit link gambar sampul Buku 2 di sini
+        cover_path: '',
         created_at: new Date().toISOString()
       },
       {
@@ -125,7 +121,7 @@ const APStore = (function(){
         tahun: '2021', 
         deskripsi: 'Buku saku partisipasi.', 
         file_path: 'https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/view', 
-        cover_path: '', // <-- Edit link gambar sampul Buku 3 di sini
+        cover_path: '',
         created_at: new Date().toISOString()
       },
       {
@@ -136,7 +132,7 @@ const APStore = (function(){
         tahun: '2020', 
         deskripsi: 'Buku referensi tata kelola.', 
         file_path: 'https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/view', 
-        cover_path: '', // <-- Edit link gambar sampul Buku 4 di sini
+        cover_path: '',
         created_at: new Date().toISOString()
       },
       {
@@ -147,7 +143,7 @@ const APStore = (function(){
         tahun: '2023', 
         deskripsi: 'Buku tentang peran pemuda.', 
         file_path: 'https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/view', 
-        cover_path: '', // <-- Edit link gambar sampul Buku 5 di sini
+        cover_path: '',
         created_at: new Date().toISOString()
       }
     ]
