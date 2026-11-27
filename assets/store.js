@@ -98,7 +98,7 @@ const APStore = (function(){
         penerbit: 'Crown New York', 
         tahun: '1972', 
         deskripsi: 'Buku panduan demokrasi.', 
-        file_path: 'https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/view', 
+        file_path: 'https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/preview', 
         cover_path: 'assets/sampul1.png',
         created_at: new Date().toISOString()
       },
