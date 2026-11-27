@@ -6,6 +6,41 @@
 <title>Paham Pemilu — Media Edukasi</title>
 <link rel="stylesheet" href="assets/public.css">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  /* Warna merah untuk tulisan AI dan Artificial Intelligence */
+  .text-red {
+    color: #E31E24 !important;
+  }
+
+  /* Styling tambahan khusus untuk section Video Penjelasan Website */
+  .guide-video-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 860px;
+    margin: 0 auto;
+    aspect-ratio: 16 / 9;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #0A2540;
+    box-shadow: 0 10px 25px rgba(10, 37, 64, 0.12);
+  }
+  .guide-video-wrapper iframe,
+  .guide-video-wrapper video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    object-fit: cover;
+  }
+  .guide-caption {
+    text-align: center;
+    margin-top: 14px;
+    color: #52606D;
+    font-size: 0.95rem;
+  }
+</style>
 </head>
 <body>
 
@@ -22,7 +57,7 @@
         </svg>
       </div>
       <div class="brand-text">
-        <div class="brand-title">GIBRAN AI</div>
+        <div class="brand-title">GIBRAN <span class="text-red">AI</span></div>
       </div>
     </a>
 
@@ -30,12 +65,13 @@
     <div class="nav-right">
       <nav class="nav-links">
         <a href="#" class="active" onclick="scrollToTop(event)"><span class="icon">🏠</span> Beranda</a>
+        <a href="#panduan"><span class="icon">🎥</span> Panduan</a>
         <a href="#" onclick="event.preventDefault(); openQuiz()"><span class="icon">📝</span> Quiz & Evaluasi</a>
         <a href="#" onclick="event.preventDefault(); openTentang()"><span class="icon">ℹ️</span> Tentang</a>
       </nav>
 
       <div class="nav-search">
-        <input type="text" placeholder="Cari materi..." id="globalSearch" onkeyup="globalSearch(this.value)">
+        <input type="text" placeholder="Cari materi..." id="globalSearchInput" onkeyup="globalSearch(this.value)">
         <span class="search-icon">🔍</span>
       </div>
     </div>
@@ -45,7 +81,6 @@
 <!-- HERO SECTION -->
 <section class="hero-section">
   <div class="hero-bg">
-    <!-- Gambar background.png -->
     <img src="assets/background.png" alt="Siswa Paham Pemilu" class="hero-image">
     <div class="hero-overlay"></div>
   </div>
@@ -53,7 +88,7 @@
   <div class="container hero-content">
     <div class="hero-text">
       <h1><span class="text-navy">GIBRAN</span> <span class="text-red">AI</span></h1>
-      <h2>Gerakan Inovasi Belajar Demokrasi dan Politik Berbasis Artificial Intelligence</h2>
+      <h2>Gerakan Inovasi Belajar Demokrasi dan Politik Berbasis <span class="text-red">Artificial Intelligence</span></h2>
       <p>Kenali Pemilu, Pahami Demokrasi,<br>Bangun Masa Depan Bangsa</p>
       <a href="#video" class="btn-hero">
         <span class="btn-icon">▶</span>
@@ -133,6 +168,32 @@
     <div class="book-grid" id="booksGrid"></div>
   </section>
 
+  <!-- SECTION 4: VIDEO PENJELASAN WEBSITE (GOOGLE DRIVE) -->
+  <section class="content-box" id="panduan">
+    <div class="box-header">
+      <div class="header-left">
+        <div class="header-icon icon-blue">🖥️</div>
+        <div>
+          <h2>Video Penjelasan Website</h2>
+          <p>Panduan singkat cara menggunakan fitur-fitur di platform GIBRAN <span class="text-red">AI</span></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="guide-video-wrapper">
+      <!-- Ganti GANTI_DENGAN_ID_FILE_GDRIVE dengan ID file video dari link Google Drive Anda -->
+      <iframe 
+        src="https://drive.google.com/file/d/GANTI_DENGAN_ID_FILE_GDRIVE/preview" 
+        title="Video Penjelasan Website GIBRAN AI" 
+        allow="autoplay; fullscreen" 
+        allowfullscreen>
+      </iframe>
+    </div>
+    <p class="guide-caption">
+      Tonton video di atas untuk memahami alur belajar, pencarian materi, hingga pengerjaan quiz evaluasi.
+    </p>
+  </section>
+
 </div>
 
 <!-- FOOTER (Tanpa Ikon Sosmed) -->
@@ -194,8 +255,8 @@
   <div class="modal-box large-modal">
     <button class="modal-close" onclick="closeTentang()">✕</button>
     <div class="tentang-content">
-      <h2 style="color:var(--navy); margin-bottom: 16px;">Tentang GIBRAN AI</h2>
-      <p><strong>GIBRAN AI</strong> adalah platform media edukasi digital yang dirancang khusus untuk membantu guru dan siswa memahami seluk-beluk kepemiluan dan demokrasi di Indonesia.</p>
+      <h2 style="color:var(--navy); margin-bottom: 16px;">Tentang GIBRAN <span class="text-red">AI</span></h2>
+      <p><strong>GIBRAN <span class="text-red">AI</span></strong> adalah platform media edukasi digital yang dirancang khusus untuk membantu guru dan siswa memahami seluk-beluk kepemiluan dan demokrasi di Indonesia.</p>
       <p>Tujuan kami adalah menciptakan generasi muda yang cerdas dalam berdemokrasi, memahami hak dan kewajibannya sebagai warga negara, serta memiliki kesadaran tinggi untuk berpartisipasi dalam Pemilu.</p>
       <p>Melalui video pembelajaran, kumpulan aturan, referensi buku, dan quiz interaktif, kami berharap pendidikan politik dapat diakses dengan mudah, menyenangkan, dan relevan dengan dunia pendidikan.</p>
     </div>
@@ -204,13 +265,48 @@
 
 <script src="assets/store.js"></script>
 <script>
+// Fallback jika helper di store.js belum tersedia
+if (typeof esc !== 'function') {
+  window.esc = function(str) {
+    return String(str ?? '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  };
+}
+
+if (typeof ytThumb !== 'function') {
+  window.ytThumb = function(url) {
+    const match = String(url || '').match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([^&?\s]+)/);
+    return match ? `https://img.youtube.com/vi/${match[1]}/hqdefault.jpg` : '';
+  };
+}
+
+function toEmbedYoutube(url) {
+  const match = String(url || '').match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([^&?\s]+)/);
+  return match ? `https://www.youtube.com/embed/${match[1]}` : url;
+}
+
+function toEmbedGdrive(url) {
+  const str = String(url || '');
+  const match = str.match(/\/file\/d\/([^\/?#]+)/) || str.match(/[?&]id=([^&]+)/);
+  if (match) {
+    return `https://drive.google.com/file/d/${match[1]}/preview`;
+  }
+  return str.includes('/view') ? str.replace('/view', '/preview') : str;
+}
+
 let searchQuery = ""; // Variabel penampung kata kunci pencarian
 
 // --- RENDER DATA HOMEPAGE & PENCARIAN ---
 function render(){
-  const videos = APStore.getList('videos');
-  const rules  = APStore.getList('rules');
-  const books  = APStore.getList('books');
+  if (typeof APStore === 'undefined') return;
+
+  const videos = APStore.getList('videos') || [];
+  const rules  = APStore.getList('rules') || [];
+  const books  = APStore.getList('books') || [];
 
   // Filter Data Berdasarkan Pencarian
   const filteredVideos = videos.filter(v => (v.judul + ' ' + (v.kategori||'') + ' ' + (v.deskripsi||'')).toLowerCase().includes(searchQuery));
@@ -219,7 +315,7 @@ function render(){
 
   // 1. Render Video
   const vg = document.getElementById('videoGrid');
-  const vLimit = searchQuery ? filteredVideos.length : 3; // Tampilkan semua jika sedang mencari
+  const vLimit = searchQuery ? filteredVideos.length : 3;
   if (!filteredVideos.length){
     vg.innerHTML = '<div class="empty">Video tidak ditemukan.</div>';
   } else {
@@ -247,7 +343,7 @@ function render(){
 
 // --- FUNGSI PENCARIAN ---
 function globalSearch(val) {
-  searchQuery = val.toLowerCase();
+  searchQuery = val.toLowerCase().trim();
   render();
 }
 
@@ -263,11 +359,11 @@ function generateVideoCard(v) {
     thumb = 'https://images.unsplash.com/photo-1540910419892-4a36d2c3266c?q=80&w=600&auto=format&fit=crop'; 
   }
 
-  const dataVideo = esc(JSON.stringify({tipe:v.tipe, src: v.url}));
+  const dataVideo = esc(JSON.stringify({tipe: v.tipe, src: v.url}));
   
   return `
     <div class="v-card" onclick='openVideo(${dataVideo})'>
-      <div class="v-thumb" style="background-image:url('${thumb}')">
+      <div class="v-thumb" style="background-image:url('${esc(thumb)}')">
         <div class="v-play">▶</div>
       </div>
       <div class="v-info">
@@ -288,7 +384,7 @@ function generateRuleCard(r) {
         <span class="r-badge">${esc(r.kategori)}</span>
         <h3>${esc(r.judul)}</h3>
         <p>${esc(r.deskripsi||'')}</p>
-        <a href="${esc(r.file_path||'#')}" target="_blank" class="r-btn">Buka Drive ⬇</a>
+        <a href="${esc(r.file_path||'#')}" target="_blank" rel="noopener noreferrer" class="r-btn">Buka Drive ⬇</a>
       </div>
     </div>`;
 }
@@ -297,7 +393,7 @@ function generateBookCard(b, index) {
   const coverClasses = ['c-navy', 'c-white', 'c-red', 'c-blue', 'c-yellow'];
   const cls = coverClasses[index % coverClasses.length];
   return `
-    <div class="b-card" onclick="window.open('${esc(b.file_path||'#')}', '_blank')" style="cursor:pointer">
+    <div class="b-card" onclick="window.open('${esc(b.file_path||'#')}', '_blank', 'noopener,noreferrer')" style="cursor:pointer">
       <div class="b-cover ${cls}">
         <h3>${esc(b.judul)}</h3>
       </div>
@@ -308,23 +404,21 @@ function generateBookCard(b, index) {
 function openVideo(data){
   const content = document.getElementById('videoContent');
   
-  if (!data.src){
+  if (!data || !data.src){
     content.innerHTML = '<div style="padding:60px;text-align:center;color:#fff">Video belum diset.</div>';
   } else if (data.tipe === 'youtube'){
-    content.innerHTML = `<iframe src="${data.src}?autoplay=1" allowfullscreen allow="autoplay; encrypted-media"></iframe>`;
-  } else if (data.tipe === 'gdrive') {
-    let embedUrl = data.src;
-    if(embedUrl.includes('/view')) {
-       embedUrl = embedUrl.replace('/view', '/preview');
-    }
-    
+    const embedSrc = toEmbedYoutube(data.src);
+    const separator = embedSrc.includes('?') ? '&' : '?';
+    content.innerHTML = `<iframe src="${esc(embedSrc)}${separator}autoplay=1" allowfullscreen allow="autoplay; encrypted-media"></iframe>`;
+  } else if (data.tipe === 'gdrive' || String(data.src).includes('drive.google.com')) {
+    const embedUrl = toEmbedGdrive(data.src);
     content.innerHTML = `
       <div style="position:relative; width:100%; aspect-ratio:16/9; background:#000;">
-        <iframe src="${embedUrl}" style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;" allowfullscreen allow="autoplay"></iframe>
+        <iframe src="${esc(embedUrl)}" style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;" allowfullscreen allow="autoplay"></iframe>
       </div>
     `;
   } else {
-    content.innerHTML = `<video src="${data.src}" controls autoplay></video>`;
+    content.innerHTML = `<video src="${esc(data.src)}" controls autoplay></video>`;
   }
   
   document.getElementById('videoModal').classList.add('open');
@@ -407,7 +501,7 @@ function submitQuiz(e) {
   
   quizData.forEach((item, index) => {
     const selected = form.querySelector(`input[name="q${index}"]:checked`);
-    if (selected && parseInt(selected.value) === item.answer) {
+    if (selected && parseInt(selected.value, 10) === item.answer) {
       score++;
     }
   });
@@ -436,17 +530,13 @@ function submitQuiz(e) {
 function scrollToTop(e) { e.preventDefault(); window.scrollTo({top:0, behavior:'smooth'}); }
 
 // Menutup Modal saat area luar (backdrop gelap) diklik
-document.getElementById('videoModal').addEventListener('click', e => {
-  if (e.target.classList.contains('modal')) closeVideo();
-});
-document.getElementById('allModal').addEventListener('click', e => {
-  if (e.target.classList.contains('modal')) closeAll();
-});
-document.getElementById('tentangModal').addEventListener('click', e => {
-  if (e.target.classList.contains('modal')) closeTentang();
-});
-document.getElementById('quizModal').addEventListener('click', e => {
-  if (e.target.classList.contains('modal')) closeQuiz();
+document.querySelectorAll('.modal').forEach(modal => {
+  modal.addEventListener('click', e => {
+    if (e.target === modal) {
+      if (modal.id === 'videoModal') closeVideo();
+      else modal.classList.remove('open');
+    }
+  });
 });
 
 // Menutup Modal dengan tombol ESC
