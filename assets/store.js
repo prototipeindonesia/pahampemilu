@@ -1,8 +1,13 @@
 // ===== DEMO DATA STORE (localStorage) =====
 const APStore = (function(){
-  // Ubah angka versi (misal v3 -> v4) setiap kali Anda mengedit data seed di bawah ini
-  // agar browser otomatis memperbarui data lama yang tersimpan di localStorage
-  const KEY = 'aksi_perubahan_data_v3'; 
+  // Ubah angka versi (misal v4 -> v5) setiap kali Anda mengedit data seed di bawah ini
+  // agar browser pengunjung otomatis memperbarui data lama yang tersimpan di localStorage
+  const KEY = 'aksi_perubahan_data_v4'; 
+
+  // Bersihkan cache versi lama agar tidak membebani memori browser
+  ['aksi_perubahan_data', 'aksi_perubahan_data_v1', 'aksi_perubahan_data_v2', 'aksi_perubahan_data_v3'].forEach(oldKey => {
+    try { localStorage.removeItem(oldKey); } catch(e) {}
+  });
 
   const seed = {
     // ===== DATA VIDEO PEMBELAJARAN =====
@@ -188,7 +193,7 @@ function ytId(url){
 }
 function ytEmbed(url){ 
   const id = ytId(url); 
-  return id ? 'https://www.youtube-nocookie.com/embed/' + id : null; 
+  return id ? 'https://www.youtube.com/embed/' + id : null; 
 }
 function ytThumb(url){ 
   const id = ytId(url); 
