@@ -68,7 +68,7 @@ const APStore = (function(){
         judul: 'PKPU No. 15 Tahun 2023', 
         deskripsi: 'Tentang Kampanye Pemilu', 
         kategori: 'Peraturan KPU', 
-        file_path: 'https://drive.google.com/file/d/1oLnfLmS2aR_sMWR4h5BY6MZMSHc_53PO/view?usp=drivesdk', 
+        file_path: 'https://drive.google.com/file/d/1oLnfLmS2aR_sMWR4h5BY6MZMSHc_53PO/preview', 
         created_at: new Date().toISOString()
       },
       {
@@ -76,7 +76,7 @@ const APStore = (function(){
         judul: 'UU No. 7 Tahun 2017', 
         deskripsi: 'Tentang Pemilihan Umum', 
         kategori: 'Undang-Undang', 
-        file_path: 'https://drive.google.com/file/d/1qwnkYWjq8nIF10dOgkwTZoWv1qnXUFPH/view?usp=drivesdk', 
+        file_path: 'https://drive.google.com/file/d/1qwnkYWjq8nIF10dOgkwTZoWv1qnXUFPH/preview', 
         created_at: new Date().toISOString()
       },
       {
@@ -84,7 +84,7 @@ const APStore = (function(){
         judul: 'PP No. 1 Tahun 2022', 
         deskripsi: 'Tentang Tahapan Penyelenggaraan Pemilu', 
         kategori: 'Peraturan Pemerintah', 
-        file_path: 'https://drive.google.com/file/d/1yQhuoZ8sPM8zWKmEL3B577SWZM1Gql7A/view?usp=drivesdk', 
+        file_path: 'https://drive.google.com/file/d/1yQhuoZ8sPM8zWKmEL3B577SWZM1Gql7A/preview', 
         created_at: new Date().toISOString()
       }
     ],
@@ -93,10 +93,10 @@ const APStore = (function(){
     books: [
       {
         id: 1, 
-        judul: 'Demokrasi untuk Semua', 
-        penulis: 'Tim Penulis', 
-        penerbit: 'KPU RI', 
-        tahun: '2023', 
+        judul: 'How Democracies Die', 
+        penulis: 'Steven Levitsky and Daniel Ziblatt', 
+        penerbit: 'Crown New York', 
+        tahun: '1972', 
         deskripsi: 'Buku panduan demokrasi.', 
         file_path: 'https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/view', 
         cover_path: '',
